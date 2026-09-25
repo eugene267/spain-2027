@@ -122,12 +122,11 @@ h1,h2,h3{text-wrap:balance;margin:0}
 .chip.opt{color:var(--ink-3)}
 .chip.foot{color:var(--bcn)}
 .note{font-size:13px;color:var(--ink-3);border-left:2px solid var(--line);padding-left:10px}
-.shot{position:relative;margin:2px 0 4px;border-radius:10px;overflow:hidden;aspect-ratio:2.2/1;max-width:100%;background:var(--soft)}
-.shot img{display:block;width:100%;height:100%;object-fit:cover}
+.shot{position:relative;margin:2px 0 4px;border-radius:10px;overflow:hidden;max-width:100%;background:var(--soft)}
+.shot img{display:block;width:100%;height:auto}
 .shot figcaption{position:absolute;right:0;bottom:0;left:0;padding:18px 10px 6px;text-align:right;background:linear-gradient(transparent,rgba(0,0,0,.45))}
 .shot figcaption a{font-size:10.5px;color:rgba(255,255,255,.88);text-decoration:none}
 .shot figcaption a:hover{text-decoration:underline}
-@media (max-width:560px){.shot{aspect-ratio:16/10}}
 
 /* TICKET */
 .ticket{margin-top:28px;display:grid;grid-template-columns:1fr auto;background:var(--surface);border-radius:12px;box-shadow:var(--shadow);position:relative;overflow:hidden}
@@ -437,11 +436,11 @@ const CHIP={book:['예약필수','book'],opt:['선택','opt'],foot:['축구','fo
 const WM='https://thumb.wikimedia.org/wikipedia/commons/thumb/';
 const IMG={
   palace:{src:WM+'9/9b/Palacio_Real_de_Madrid_Julio_2016_%28cropped%29.jpg/960px-Palacio_Real_de_Madrid_Julio_2016_%28cropped%29.jpg',w:960,h:726,alt:'마드리드 왕궁 정면',by:'Tim Adams',lic:'CC BY-SA 4.0',page:'https://commons.wikimedia.org/wiki/File:Palacio_Real_de_Madrid_Julio_2016_(cropped).jpg'},
-  toledo:{src:WM+'6/65/Toledo_%2837737041515%29.jpg/960px-Toledo_%2837737041515%29.jpg',w:960,h:720,alt:'강 건너에서 본 톨레도 구시가지',by:'Dmitry Dzhus',lic:'CC BY 2.0',page:'https://commons.wikimedia.org/wiki/File:Toledo_(37737041515).jpg'},
+  toledo:{src:WM+'2/26/Toledo_Skyline_Panorama%2C_Spain_-_Dec_2006.jpg/960px-Toledo_Skyline_Panorama%2C_Spain_-_Dec_2006.jpg',w:960,h:456,alt:'해 뜰 무렵 톨레도 스카이라인. 왼쪽 알카사르, 오른쪽 대성당',by:'Diliff',lic:'CC BY 2.5',page:'https://commons.wikimedia.org/wiki/File:Toledo_Skyline_Panorama,_Spain_-_Dec_2006.jpg'},
   alcazar:{src:WM+'c/c9/Sevilla-2-2_%2848040287512%29-edit.jpg/960px-Sevilla-2-2_%2848040287512%29-edit.jpg',w:960,h:720,alt:'세비야 알카사르 정원과 궁전',by:'Ajay Suresh, edited by MenkinAlRire',lic:'CC BY 2.0',page:'https://commons.wikimedia.org/wiki/File:Sevilla-2-2_(48040287512)-edit.jpg'},
-  plaza:{src:WM+'b/b6/Plaza_de_Espa%C3%B1a_%28Sevilla%29_-_01.jpg/960px-Plaza_de_Espa%C3%B1a_%28Sevilla%29_-_01.jpg',w:960,h:640,alt:'세비야 스페인 광장',by:'Carlos Delgado',lic:'CC BY-SA 4.0',page:'https://commons.wikimedia.org/wiki/File:Plaza_de_Espa%C3%B1a_(Sevilla)_-_01.jpg'},
-  sagrada:{src:WM+'e/ef/SF_maig_2_cropped.jpg/960px-SF_maig_2_cropped.jpg',w:960,h:1397,pos:'50% 30%',alt:'사그라다 파밀리아',by:'Canaan',lic:'CC BY-SA 4.0',page:'https://commons.wikimedia.org/wiki/File:SF_maig_2_cropped.jpg'},
-  guell:{src:WM+'3/33/Parc_guell_-_panoramio.jpg/960px-Parc_guell_-_panoramio.jpg',w:960,h:720,alt:'구엘 공원 타일 벤치와 전망',by:'essetefano',lic:'CC BY 3.0',page:'https://commons.wikimedia.org/wiki/File:Parc_guell_-_panoramio.jpg'},
+  plaza:{src:WM+'3/39/Seville%2C_Plaza_de_Espa%C3%B1a_%2838625005691%29_%28edited%29.jpg/960px-Seville%2C_Plaza_de_Espa%C3%B1a_%2838625005691%29_%28edited%29.jpg',w:960,h:762,alt:'세비야 스페인 광장',by:'Dmitry Dzhus',lic:'CC BY 2.0',page:'https://commons.wikimedia.org/wiki/File:Seville,_Plaza_de_Espa%C3%B1a_(38625005691)_(edited).jpg'},
+  sagrada:{src:WM+'7/74/Sagrada_Familia_March_2015-10a.jpg/960px-Sagrada_Familia_March_2015-10a.jpg',w:960,h:722,alt:'사그라다 파밀리아 내부 천장',by:'Alvesgaspar',lic:'CC BY-SA 4.0',page:'https://commons.wikimedia.org/wiki/File:Sagrada_Familia_March_2015-10a.jpg'},
+  guell:{src:WM+'c/cb/Park_G%C3%BCell_02.jpg/960px-Park_G%C3%BCell_02.jpg',w:960,h:724,alt:'구엘 공원 입구의 가우디 건물',by:'Bernard Gagnon',lic:'CC BY-SA 3.0',page:'https://commons.wikimedia.org/wiki/File:Park_G%C3%BCell_02.jpg'},
   montserrat:{src:WM+'d/d5/Abbey_of_Montserrat_02.jpg/960px-Abbey_of_Montserrat_02.jpg',w:960,h:662,alt:'바위산 아래 몬세라트 수도원',by:'Bernard Gagnon',lic:'CC BY-SA 3.0',page:'https://commons.wikimedia.org/wiki/File:Abbey_of_Montserrat_02.jpg'}
 };
 const shot=i=>`<figure class="shot"><img src="${i.src}" width="${i.w}" height="${i.h}" alt="${escA(i.alt)}" loading="lazy" decoding="async"${i.pos?` style="object-position:${i.pos}"`:''}><figcaption><a href="${i.page}" target="_blank" rel="noopener">사진 ${esc(i.by)} · ${i.lic}</a></figcaption></figure>`;
