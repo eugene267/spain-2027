@@ -116,7 +116,6 @@ h1,h2,h3{text-wrap:balance;margin:0}
 .body{display:grid;gap:10px;min-width:0}
 .body h3{font-size:18px;font-weight:700;line-height:1.35}
 .plan{list-style:none;margin:0;padding:0;display:grid;gap:6px}
-.plan li{display:grid;grid-template-columns:52px 1fr;gap:10px;font-size:14.5px;color:var(--ink-2)}
 .plan time{font-family:var(--mono);font-size:12.5px;color:var(--ink-3);padding-top:2px;font-variant-numeric:tabular-nums}
 .chip{display:inline-block;font-size:11px;font-weight:600;padding:1px 7px;border-radius:4px;margin-left:6px;vertical-align:1px;border:1px solid currentColor}
 .chip.book{color:var(--mad)}
@@ -164,37 +163,69 @@ footer{margin-top:56px;font-size:12px;color:var(--ink-3);text-align:center;font-
 .hidden-city{display:none}
 @media (prefers-reduced-motion:no-preference){.day,.ticket{transition:opacity .2s}}
 /* COMMENTS */
-.comments{margin-top:72px;display:grid;gap:16px}
-.comments h2{font-family:var(--display);font-weight:700;font-size:28px;letter-spacing:-.01em}
-.comments p{margin:0;color:var(--ink-2);font-size:14px}
-.comments .box{background:var(--surface);border-radius:12px;padding:20px;box-shadow:var(--shadow);display:grid;gap:12px}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-@media (max-width:480px){.form-row{grid-template-columns:1fr}}
-.field{display:grid;gap:4px;font-size:12px;font-weight:600;color:var(--ink-3)}
-.field input,.field select,.field textarea{font:inherit;font-size:15px;font-weight:400;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px 12px;width:100%}
-.field textarea{min-height:92px;resize:vertical;line-height:1.5}
-.field input:focus,.field select:focus,.field textarea:focus{outline:2px solid var(--bcn);outline-offset:0;border-color:transparent}
+:root{--grn:#2F8A57;--grn-soft:#DFF1E6}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--grn:#5CC08A;--grn-soft:#15301F}}
+:root[data-theme="dark"]{--grn:#5CC08A;--grn-soft:#15301F}
+.tip{margin:16px 0 0;font-size:13px;color:var(--ink-3)}
+.plan li{display:block}
+.item{display:grid;grid-template-columns:52px 1fr auto;gap:10px;align-items:start;width:calc(100% + 16px);margin-inline:-8px;padding:4px 8px;font:inherit;font-size:14.5px;line-height:1.6;color:var(--ink-2);text-align:left;background:none;border:0;border-radius:6px;cursor:pointer}
+.item:hover,.item.on{background:var(--soft)}
+.item:focus-visible{outline:2px solid var(--c);outline-offset:0}
+.aux{display:flex;gap:6px;align-items:center;padding-top:3px}
+.add{font-size:11px;font-weight:600;color:var(--c);opacity:0;white-space:nowrap}
+.item:hover .add,.item.on .add,.item:focus-visible .add{opacity:1}
+.n{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--c);border:1px solid currentColor;border-radius:999px;padding:0 6px;line-height:1.5}
+@media (hover:none){.add{display:none}}
+.thread{display:grid;gap:10px}
+.t-list{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.t-list:empty{display:none}
+.slot:empty{display:none}
+.ticket .thread{grid-column:1/-1;padding:0 20px 16px}
+.cm{display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start}
+.av{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:12px;font-weight:700;background:var(--p-soft);color:var(--p);flex:none}
+.cm-body{display:grid;gap:2px;min-width:0}
+.cm-meta{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;font-size:13px}
+.cm-meta b{font-weight:700;color:var(--ink)}
+.cm-meta time{font-family:var(--mono);font-size:11px;color:var(--ink-3)}
+.cm-ref{font-size:12px;color:var(--ink-3);overflow-wrap:anywhere}
+.cm-text{font-size:14px;color:var(--ink);white-space:pre-wrap;overflow-wrap:anywhere}
+.ghost{justify-self:start;font:inherit;font-size:12.5px;font-weight:600;color:var(--c,var(--ink-2));background:none;border:1px dashed var(--line);border-radius:999px;padding:4px 12px;cursor:pointer}
+.ghost:hover{border-color:currentColor}
+.ghost:focus-visible{outline:2px solid var(--c,var(--bcn));outline-offset:2px}
+.composer{display:grid;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;box-shadow:var(--shadow)}
+.cp-ref{display:flex;justify-content:space-between;align-items:start;gap:10px;font-size:13px;color:var(--ink-2)}
+.cp-ref b{color:var(--ink)}
+.x{font:inherit;font-size:18px;line-height:1;background:none;border:0;color:var(--ink-3);cursor:pointer;padding:2px 4px}
+.who{display:flex;gap:6px;flex-wrap:wrap;border:0;margin:0;padding:0}
+.who legend{font-size:12px;font-weight:600;color:var(--ink-3);padding:0;margin-bottom:6px}
+.who label{position:relative}
+.who input{position:absolute;opacity:0;width:1px;height:1px}
+.who span{display:inline-flex;align-items:center;gap:6px;padding:4px 12px 4px 4px;border-radius:999px;border:1px solid var(--line);font-size:14px;font-weight:600;color:var(--ink-2);cursor:pointer}
+.who .av{width:24px;height:24px;font-size:11px}
+.who input:checked+span{background:var(--p-soft);border-color:var(--p);color:var(--ink)}
+.who input:focus-visible+span{outline:2px solid var(--p);outline-offset:2px}
+.composer textarea{font:inherit;font-size:15px;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px 12px;width:100%;min-height:84px;resize:vertical;line-height:1.5}
+.composer textarea:focus{outline:2px solid var(--bcn);outline-offset:0;border-color:transparent}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-.form-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-.form-foot small{font-size:12px;color:var(--ink-3);font-family:var(--mono)}
-.btn{font:inherit;font-size:14px;font-weight:700;background:var(--ink);color:var(--paper);border:0;border-radius:999px;padding:10px 22px;cursor:pointer}
+.cp-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.cp-btns{display:flex;gap:8px;align-items:center}
+.btn{font:inherit;font-size:14px;font-weight:700;background:var(--ink);color:var(--paper);border:0;border-radius:999px;padding:9px 20px;cursor:pointer}
 .btn:disabled{opacity:.5;cursor:wait}
 .btn:focus-visible{outline:2px solid var(--bcn);outline-offset:2px}
 .status{font-size:13px;color:var(--ink-2);min-height:1.2em}
 .status.err{color:var(--mad)}
+.comments{margin-top:72px;display:grid;gap:16px}
+.comments h2{font-family:var(--display);font-weight:700;font-size:28px;letter-spacing:-.01em}
+.comments>p{margin:0;color:var(--ink-2);font-size:14px}
+.comments .box{background:var(--surface);border-radius:12px;padding:20px;box-shadow:var(--shadow);display:grid;gap:14px}
 .c-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
 .c-head h3{font-size:15px;font-weight:700}
 .c-head select{font:inherit;font-size:13px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:5px 10px}
 .c-list{list-style:none;margin:0;padding:0;display:grid}
-.c-item{display:grid;gap:4px;padding-block:14px;border-top:1px solid var(--line)}
-.c-item:first-child{border-top:0}
-.c-meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:13px}
-.c-meta b{font-weight:700}
-.c-meta time{font-family:var(--mono);font-size:11px;color:var(--ink-3)}
+.c-list .cm{padding-block:14px;border-top:1px solid var(--line)}
+.c-list .cm:first-child{border-top:0;padding-top:0}
 .c-day{font-family:var(--mono);font-size:11px;font-weight:600;padding:1px 7px;border-radius:4px;background:var(--soft,var(--line));color:var(--c,var(--ink-2));text-decoration:none}
-.c-text{font-size:14.5px;color:var(--ink-2);white-space:pre-wrap;overflow-wrap:anywhere}
-.c-empty{font-size:14px;color:var(--ink-3);padding-block:8px}
-.c-count{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--c);text-decoration:none;border:1px solid currentColor;border-radius:4px;padding:0 6px;justify-self:start;margin-top:4px}
+.c-empty{font-size:14px;color:var(--ink-3);padding-block:4px}
 img{max-width:100%}
 </style>
 </head>
@@ -209,7 +240,7 @@ img{max-width:100%}
       <div><b id="dday">D-110</b><small id="dday-label">출발까지</small></div>
       <div><b>13박</b><small>1/13 수 — 1/26 화</small></div>
       <div><b>3개 도시</b><small>마드리드 · 세비야 · 바르셀로나</small></div>
-      <div><b>4명</b><small>방 배정은 알아서</small></div>
+      <div><b>4명</b><small>세찬 · 윤우 · 준서 · 유진</small></div>
     </div>
 
     <section class="route" aria-label="숙박 일정">
@@ -235,6 +266,7 @@ img{max-width:100%}
     <button type="button" id="f-move" data-f="move" aria-pressed="false">이동만 보기</button>
   </nav>
 
+  <p class="tip">일정 한 줄을 누르면 그 항목에 바로 의견을 달 수 있어요.</p>
   <main id="timeline"></main>
 
   <section class="info">
@@ -287,30 +319,13 @@ img{max-width:100%}
 
   <section class="comments" id="comments">
     <h2>리뷰 &amp; 건의사항</h2>
-    <p>가고 싶은 곳, 빼고 싶은 일정, 맛집 추천 다 여기에. 로그인 없이 닉네임만 쓰면 돼요.</p>
-    <form class="box" id="c-form" novalidate>
-      <div class="form-row">
-        <label class="field" for="c-name">닉네임
-          <input id="c-name" name="name" maxlength="20" autocomplete="nickname" placeholder="예: 민수" required>
-        </label>
-        <label class="field" for="c-day">어느 날 얘기?
-          <select id="c-day" name="day"></select>
-        </label>
-      </div>
-      <label class="field" for="c-text">내용
-        <textarea id="c-text" name="text" maxlength="500" placeholder="예: 1/16 세고비아 말고 톨레도 가자. 코치니요는 마지막 날 보틴에서 먹으면 되니까" required></textarea>
-      </label>
-      <label class="hp" aria-hidden="true">비워두세요<input id="c-hp" name="website" tabindex="-1" autocomplete="off"></label>
-      <div class="form-foot">
-        <div class="status" id="c-status" role="status"></div>
-        <button class="btn" type="submit" id="c-submit">등록</button>
-      </div>
-    </form>
+    <p>일정 한 줄을 누르면 그 항목에 바로 의견을 달 수 있어요. 일정 전체에 대한 얘기는 여기에 남겨주세요. 위에 달린 의견도 전부 여기 모여요.</p>
     <div class="box">
       <div class="c-head">
         <h3 id="c-title">의견</h3>
-        <select id="c-filter" aria-label="날짜별로 보기"></select>
+        <select id="c-filter" aria-label="의견 걸러보기"></select>
       </div>
+      <div class="thread" data-day=""><button type="button" class="ghost" data-target="">＋ 일정 전체에 대한 의견</button><div class="slot"></div></div>
       <ul class="c-list" id="c-list"><li class="c-empty">불러오는 중…</li></ul>
     </div>
   </section>
@@ -413,6 +428,7 @@ const PLAN=[
 ];
 const CHIP={book:['예약필수','book'],opt:['선택','opt'],foot:['축구','foot']};
 const esc=s=>String(s).replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));
+const escA=s=>esc(s).replace(/"/g,'&quot;');
 
 function render(){
   const root=document.getElementById('timeline');
@@ -422,12 +438,13 @@ function render(){
     const key=p.sec==='end'?'mad':CITIES[p.sec].key, col=C[key];
     if(p.ticket){
       close();
-      const t=p.ticket;
-      html+=`<article class="ticket" data-city="move" style="--c:${col.c}">
+      const t=p.ticket,td=Number(t.stub[0].split('/')[1]);
+      html+=`<article class="ticket" id="t${td}" data-city="move" style="--c:${col.c};--soft:${col.s}">
         <div class="main"><div class="t-kind">${esc(t.kind)}</div>
           <div class="t-route"><b>${t.from[0]}<small>${esc(t.from[1])}</small></b><span class="arrow"></span><b style="color:${col.c}">${t.to[0]}<small>${esc(t.to[1])}</small></b></div>
           <div class="t-info">${esc(t.info)}</div></div>
-        <div class="stub"><b class="mono">${t.stub[0]}</b><span>${t.stub[1]}</span></div></article>`;
+        <div class="stub"><b class="mono">${t.stub[0]}</b><span>${t.stub[1]}</span></div>
+        <div class="thread" data-day="${td}"><ul class="t-list"></ul><button type="button" class="ghost" data-target="이동 ${t.from[0]} → ${t.to[0]}">＋ 이동 관련 의견</button><div class="slot"></div></div></article>`;
       continue;
     }
     if(cur!==p.sec){
@@ -440,8 +457,9 @@ function render(){
     const n=p.d-12;
     html+=`<article class="day" id="d${p.d}" data-date="2027-01-${p.d}">
       <div class="date"><b>${p.d}</b><span>JAN · ${p.dow}</span><em>Day ${n}</em></div>
-      <div class="body"><h3>${esc(p.title)}</h3><ul class="plan">${p.plan.map(([t,x,c])=>`<li><time>${esc(t)}</time><span>${esc(x)}${c?`<span class="chip ${CHIP[c][1]}">${CHIP[c][0]}</span>`:''}</span></li>`).join('')}</ul>
-      ${p.note?`<div class="note">${esc(p.note)}</div>`:''}</div></article>`;
+      <div class="body"><h3>${esc(p.title)}</h3><ul class="plan">${p.plan.map(([t,x,c])=>`<li><button type="button" class="item" data-target="${escA(t+' '+x)}"><time>${esc(t)}</time><span>${esc(x)}${c?`<span class="chip ${CHIP[c][1]}">${CHIP[c][0]}</span>`:''}</span><span class="aux"><span class="n" hidden></span><span class="add">＋ 의견</span></span></button></li>`).join('')}</ul>
+      ${p.note?`<div class="note">${esc(p.note)}</div>`:''}
+      <div class="thread" data-day="${p.d}"><ul class="t-list"></ul><button type="button" class="ghost" data-target="">＋ 이 날 전체에 의견</button><div class="slot"></div></div></div></article>`;
   }
   close();
   root.innerHTML=html;
@@ -476,74 +494,122 @@ render();
 })();
 </script>
 <script>
-// 구글 Apps Script 웹 앱 URL (배포 후 여기에 붙여넣기)
+// 구글 Apps Script 웹 앱 URL
 const COMMENTS_API='https://script.google.com/macros/s/AKfycbyFjO7ohvOi5uNP4ol7OH65RU2_CLdKTrPnn9qlBxKxu4buxphnKVj4g2HmWTbvB9HP/exec';
 
 (function(){
   const $=id=>document.getElementById(id);
-  const form=$('c-form'),list=$('c-list'),status=$('c-status'),btn=$('c-submit'),filter=$('c-filter');
+  const NAMES=['세찬','윤우','준서','유진'];
+  const PCOL={'세찬':'mad','윤우':'svq','준서':'bcn','유진':'grn'};
   const DOW={13:'수',14:'목',15:'금',16:'토',17:'일',18:'월',19:'화',20:'수',21:'목',22:'금',23:'토',24:'일',25:'월',26:'화'};
   const cityOf=d=>d<=16?'mad':d<=19?'svq':d<=24?'bcn':'mad';
-  const days=Object.keys(DOW).map(Number);
-  const opt=(v,t)=>`<option value="${v}">${t}</option>`;
-  $('c-day').innerHTML=opt('','전체 일정')+days.map(d=>opt(d,`1/${d} (${DOW[d]})`)).join('');
-  filter.innerHTML=opt('all','전체 보기')+opt('','전체 일정 관련')+days.map(d=>opt(d,`1/${d}만`)).join('');
-  try{$('c-name').value=localStorage.getItem('spain-nick')||''}catch(e){}
-
-  let all=[];
+  const pStyle=n=>{const k=PCOL[n];return k?`--p:var(--${k});--p-soft:var(--${k}-soft)`:'--p:var(--ink-3);--p-soft:var(--line)'};
+  const av=n=>`<i class="av" style="${pStyle(n)}" aria-hidden="true">${esc(String(n).charAt(0))}</i>`;
+  const isMove=t=>String(t||'').startsWith('이동 ');
   const ready=COMMENTS_API.startsWith('https://');
   const fmt=t=>{const d=new Date(t);return isNaN(d)?'':`${d.getMonth()+1}/${d.getDate()} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`};
+  let all=[],me='';
+  try{me=localStorage.getItem('spain-me')||''}catch(e){}
+  if(!NAMES.includes(me))me='';
 
-  function draw(){
-    const f=filter.value;
-    const rows=all.filter(c=>f==='all'||String(c.day||'')===f);
-    $('c-title').textContent=`의견 ${all.length}개`;
-    if(!rows.length){list.innerHTML=`<li class="c-empty">${all.length?'이 날짜엔 아직 의견이 없어요.':'아직 의견이 없어요. 첫 번째로 남겨보세요.'}</li>`;return;}
-    list.innerHTML=rows.map(c=>{
-      const d=Number(c.day),k=d?cityOf(d):null;
-      const chip=d?`<a class="c-day" href="#d${d}" style="--c:var(--${k});--soft:var(--${k}-soft)">1/${d} ${DOW[d]||''}</a>`:'';
-      return `<li class="c-item"><div class="c-meta"><b>${esc(c.name)}</b>${chip}<time>${fmt(c.t)}</time></div><div class="c-text">${esc(c.text)}</div></li>`;
-    }).join('');
+  // 작성 폼: 하나만 만들어서 누른 곳 아래로 옮겨 다님
+  const cp=document.createElement('form');
+  cp.className='composer';cp.id='composer';cp.noValidate=true;
+  cp.innerHTML=`<div class="cp-ref"><span id="cp-ref"></span><button type="button" class="x" id="cp-x" aria-label="닫기">×</button></div>
+    <fieldset class="who"><legend>누구?</legend>${NAMES.map((n,i)=>`<label for="who-${i}"><input type="radio" name="who" id="who-${i}" value="${n}"${n===me?' checked':''}><span style="${pStyle(n)}">${av(n)}${n}</span></label>`).join('')}</fieldset>
+    <textarea id="cp-text" maxlength="500" aria-label="의견 내용" placeholder="예: 이거 빼고 톨레도 가자 / 여기 꼭 가고 싶음 / 근처 맛집 추천"></textarea>
+    <input class="hp" id="cp-hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="cp-foot"><div class="status" id="cp-status" role="status"></div><div class="cp-btns"><button type="button" class="ghost" id="cp-cancel">취소</button><button type="submit" class="btn" id="cp-send">등록</button></div></div>`;
+  let cur=null;
+
+  function refLabel(day,target){
+    const d=Number(day);
+    if(!d)return '<b>일정 전체</b>';
+    const dl=`1/${d} (${DOW[d]||''})`;
+    return target?`<b>${esc(target)}</b> · ${dl}`:`<b>${dl} 하루 전체</b>`;
   }
+  function open(thread,day,target,btn){
+    document.querySelectorAll('.item.on').forEach(el=>el.classList.remove('on'));
+    if(btn&&btn.classList.contains('item'))btn.classList.add('on');
+    cur={day:String(day||''),target:target||''};
+    thread.querySelector('.slot').appendChild(cp);
+    $('cp-ref').innerHTML=refLabel(day,target)+'에 대한 의견';
+    const st=$('cp-status');st.textContent='';st.className='status';
+    cp.scrollIntoView({block:'nearest',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+    (cp.querySelector('input[name=who]:checked')?$('cp-text'):$('who-0')).focus({preventScroll:true});
+  }
+  function close(){
+    document.querySelectorAll('.item.on').forEach(el=>el.classList.remove('on'));
+    cp.remove();cur=null;
+  }
+  document.addEventListener('click',e=>{
+    const el=e.target.closest('.item, .ghost[data-target]');
+    if(!el)return;
+    if(el.classList.contains('item')&&el.classList.contains('on')){close();return;}
+    const thread=el.classList.contains('item')?el.closest('.day').querySelector('.thread'):el.closest('.thread');
+    open(thread,thread.dataset.day,el.dataset.target,el);
+  });
+  cp.addEventListener('click',e=>{if(e.target.id==='cp-x'||e.target.id==='cp-cancel')close();});
+  cp.addEventListener('change',e=>{if(e.target.name==='who'){me=e.target.value;try{localStorage.setItem('spain-me',me)}catch(err){}}});
 
-  // 날짜 카드에 의견 개수 배지
-  function badges(){
-    document.querySelectorAll('.c-count').forEach(el=>el.remove());
-    const n={};all.forEach(c=>{if(c.day)n[c.day]=(n[c.day]||0)+1});
-    Object.entries(n).forEach(([d,cnt])=>{
-      const card=$('d'+d);if(!card)return;
-      const a=document.createElement('a');a.className='c-count';a.href='#comments';a.textContent=`의견 ${cnt}`;
-      a.addEventListener('click',()=>{filter.value=d;draw()});
-      card.querySelector('.date').appendChild(a);
+  cp.addEventListener('submit',async e=>{
+    e.preventDefault();
+    const st=$('cp-status'),send=$('cp-send');
+    const who=cp.querySelector('input[name=who]:checked'),text=$('cp-text').value.trim();
+    st.className='status';
+    if(!who){st.textContent='누구인지 골라주세요.';st.classList.add('err');return;}
+    if(!text){st.textContent='내용을 적어주세요.';st.classList.add('err');$('cp-text').focus();return;}
+    if(!ready){st.textContent='댓글 서버가 아직 연결되지 않았어요.';st.classList.add('err');return;}
+    send.disabled=true;st.textContent='등록 중…';
+    try{
+      const r=await fetch(COMMENTS_API,{method:'POST',body:JSON.stringify({name:who.value,day:cur.day,target:cur.target,text,website:$('cp-hp').value})});
+      const j=await r.json();
+      if(!j.ok)throw new Error(j.error||'fail');
+      $('cp-text').value='';
+      await load();
+      close();
+    }catch(err){st.textContent='등록하지 못했어요. 잠시 후 다시 눌러주세요.';st.classList.add('err');}
+    finally{send.disabled=false;}
+  });
+
+  // 목록
+  const list=$('c-list'),filter=$('c-filter');
+  const opt=(v,t)=>`<option value="${v}">${t}</option>`;
+  filter.innerHTML=opt('all','전체 보기')
+    +`<optgroup label="사람">${NAMES.map(n=>opt('p:'+n,n)).join('')}</optgroup>`
+    +`<optgroup label="날짜">${opt('d:','일정 전체')}${Object.keys(DOW).map(d=>opt('d:'+d,`1/${d} (${DOW[d]})`)).join('')}</optgroup>`;
+  filter.addEventListener('change',drawList);
+
+  function cmHTML(c,withDay){
+    const d=Number(c.day);let chip='';
+    if(withDay&&d){const k=cityOf(d);chip=`<a class="c-day" href="#${isMove(c.target)?'t':'d'}${d}" style="--c:var(--${k});--soft:var(--${k}-soft)">1/${d} ${DOW[d]||''}</a>`;}
+    const ref=c.target?`<div class="cm-ref">↳ ${esc(c.target)}</div>`:(withDay||!d?'':`<div class="cm-ref">↳ 하루 전체</div>`);
+    return `<li class="cm" style="${pStyle(c.name)}">${av(c.name)}<div class="cm-body"><div class="cm-meta"><b>${esc(c.name)}</b>${chip}<time>${fmt(c.t)}</time></div>${ref}<div class="cm-text">${esc(c.text)}</div></div></li>`;
+  }
+  function drawList(){
+    const f=filter.value;
+    const rows=all.filter(c=>f==='all'||(f.startsWith('p:')&&c.name===f.slice(2))||(f.startsWith('d:')&&String(c.day||'')===f.slice(2))).slice().reverse();
+    $('c-title').textContent=`의견 ${all.length}개`;
+    list.innerHTML=rows.length?rows.map(c=>cmHTML(c,true)).join(''):`<li class="c-empty">${all.length?'조건에 맞는 의견이 없어요.':'아직 의견이 없어요. 일정 한 줄을 눌러 첫 의견을 남겨보세요.'}</li>`;
+  }
+  function drawThreads(){
+    document.querySelectorAll('.day, .ticket').forEach(host=>{
+      const d=host.id.slice(1),move=host.id[0]==='t';
+      const mine=all.filter(c=>String(c.day)===d&&isMove(c.target)===move);
+      const tl=host.querySelector('.t-list');if(tl)tl.innerHTML=mine.map(c=>cmHTML(c,false)).join('');
+      host.querySelectorAll('.item').forEach(b=>{
+        const n=mine.filter(c=>c.target===b.dataset.target).length,el=b.querySelector('.n');
+        el.hidden=!n;el.textContent=n;
+      });
     });
   }
-
   async function load(){
     if(!ready){list.innerHTML='<li class="c-empty">댓글 서버가 아직 연결되지 않았어요.</li>';return;}
     try{
       const r=await fetch(COMMENTS_API);const j=await r.json();
-      all=(j.comments||[]).reverse();draw();badges();
+      all=j.comments||[];drawList();drawThreads();
     }catch(e){list.innerHTML='<li class="c-empty">의견을 불러오지 못했어요. 새로고침해 보세요.</li>';}
   }
-
-  filter.addEventListener('change',draw);
-  form.addEventListener('submit',async e=>{
-    e.preventDefault();
-    const name=$('c-name').value.trim(),text=$('c-text').value.trim(),day=$('c-day').value;
-    status.className='status';
-    if(!name||!text){status.textContent='닉네임과 내용을 모두 적어주세요.';status.classList.add('err');return;}
-    if(!ready){status.textContent='댓글 서버가 아직 연결되지 않았어요.';status.classList.add('err');return;}
-    btn.disabled=true;status.textContent='등록 중…';
-    try{
-      const r=await fetch(COMMENTS_API,{method:'POST',body:JSON.stringify({name,text,day,website:$('c-hp').value})});
-      const j=await r.json();
-      if(!j.ok)throw new Error(j.error||'fail');
-      try{localStorage.setItem('spain-nick',name)}catch(e){}
-      $('c-text').value='';status.textContent='등록했어요.';
-      filter.value='all';await load();
-    }catch(err){status.textContent='등록하지 못했어요. 잠시 후 다시 눌러주세요.';status.classList.add('err');}
-    finally{btn.disabled=false;}
-  });
   load();
 })();
 </script>
