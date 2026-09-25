@@ -165,7 +165,34 @@ footer{margin-top:56px;font-size:12px;color:var(--ink-3);text-align:center;font-
 .comments{margin-top:72px;display:grid;gap:16px}
 .comments h2{font-family:var(--display);font-weight:700;font-size:28px;letter-spacing:-.01em}
 .comments p{margin:0;color:var(--ink-2);font-size:14px}
-.comments .box{background:var(--surface);border-radius:12px;padding:20px;box-shadow:var(--shadow);min-height:120px}
+.comments .box{background:var(--surface);border-radius:12px;padding:20px;box-shadow:var(--shadow);display:grid;gap:12px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:480px){.form-row{grid-template-columns:1fr}}
+.field{display:grid;gap:4px;font-size:12px;font-weight:600;color:var(--ink-3)}
+.field input,.field select,.field textarea{font:inherit;font-size:15px;font-weight:400;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px 12px;width:100%}
+.field textarea{min-height:92px;resize:vertical;line-height:1.5}
+.field input:focus,.field select:focus,.field textarea:focus{outline:2px solid var(--bcn);outline-offset:0;border-color:transparent}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.form-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.form-foot small{font-size:12px;color:var(--ink-3);font-family:var(--mono)}
+.btn{font:inherit;font-size:14px;font-weight:700;background:var(--ink);color:var(--paper);border:0;border-radius:999px;padding:10px 22px;cursor:pointer}
+.btn:disabled{opacity:.5;cursor:wait}
+.btn:focus-visible{outline:2px solid var(--bcn);outline-offset:2px}
+.status{font-size:13px;color:var(--ink-2);min-height:1.2em}
+.status.err{color:var(--mad)}
+.c-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.c-head h3{font-size:15px;font-weight:700}
+.c-head select{font:inherit;font-size:13px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:5px 10px}
+.c-list{list-style:none;margin:0;padding:0;display:grid}
+.c-item{display:grid;gap:4px;padding-block:14px;border-top:1px solid var(--line)}
+.c-item:first-child{border-top:0}
+.c-meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:13px}
+.c-meta b{font-weight:700}
+.c-meta time{font-family:var(--mono);font-size:11px;color:var(--ink-3)}
+.c-day{font-family:var(--mono);font-size:11px;font-weight:600;padding:1px 7px;border-radius:4px;background:var(--soft,var(--line));color:var(--c,var(--ink-2));text-decoration:none}
+.c-text{font-size:14.5px;color:var(--ink-2);white-space:pre-wrap;overflow-wrap:anywhere}
+.c-empty{font-size:14px;color:var(--ink-3);padding-block:8px}
+.c-count{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--c);text-decoration:none;border:1px solid currentColor;border-radius:4px;padding:0 6px;justify-self:start;margin-top:4px}
 img{max-width:100%}
 </style>
 </head>
@@ -259,8 +286,30 @@ img{max-width:100%}
   <section class="comments" id="comments">
     <h2>리뷰 &amp; 건의사항</h2>
     <p>가고 싶은 곳, 빼고 싶은 일정, 맛집 추천 다 여기에. 로그인 없이 닉네임만 쓰면 돼요.</p>
+    <form class="box" id="c-form" novalidate>
+      <div class="form-row">
+        <label class="field" for="c-name">닉네임
+          <input id="c-name" name="name" maxlength="20" autocomplete="nickname" placeholder="예: 민수" required>
+        </label>
+        <label class="field" for="c-day">어느 날 얘기?
+          <select id="c-day" name="day"></select>
+        </label>
+      </div>
+      <label class="field" for="c-text">내용
+        <textarea id="c-text" name="text" maxlength="500" placeholder="예: 1/16 세고비아 말고 톨레도 가자. 코치니요는 마지막 날 보틴에서 먹으면 되니까" required></textarea>
+      </label>
+      <label class="hp" aria-hidden="true">비워두세요<input id="c-hp" name="website" tabindex="-1" autocomplete="off"></label>
+      <div class="form-foot">
+        <div class="status" id="c-status" role="status"></div>
+        <button class="btn" type="submit" id="c-submit">등록</button>
+      </div>
+    </form>
     <div class="box">
-      <div id="cusdis_thread" data-host="https://cusdis.com" data-app-id="YOUR_CUSDIS_APP_ID" data-page-id="spain-2027-itinerary" data-page-title="España 2027 일정표" data-theme="auto"></div>
+      <div class="c-head">
+        <h3 id="c-title">의견</h3>
+        <select id="c-filter" aria-label="날짜별로 보기"></select>
+      </div>
+      <ul class="c-list" id="c-list"><li class="c-empty">불러오는 중…</li></ul>
     </div>
   </section>
 
@@ -424,7 +473,77 @@ render();
   apply(btns.some(b=>b.dataset.f===saved)?saved:'all');
 })();
 </script>
-<script>document.getElementById('cusdis_thread').dataset.pageUrl=location.href.split('#')[0];</script>
-<script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+<script>
+// 구글 Apps Script 웹 앱 URL (배포 후 여기에 붙여넣기)
+const COMMENTS_API='PASTE_WEB_APP_URL_HERE';
+
+(function(){
+  const $=id=>document.getElementById(id);
+  const form=$('c-form'),list=$('c-list'),status=$('c-status'),btn=$('c-submit'),filter=$('c-filter');
+  const DOW={13:'수',14:'목',15:'금',16:'토',17:'일',18:'월',19:'화',20:'수',21:'목',22:'금',23:'토',24:'일',25:'월',26:'화'};
+  const cityOf=d=>d<=16?'mad':d<=19?'svq':d<=24?'bcn':'mad';
+  const days=Object.keys(DOW).map(Number);
+  const opt=(v,t)=>`<option value="${v}">${t}</option>`;
+  $('c-day').innerHTML=opt('','전체 일정')+days.map(d=>opt(d,`1/${d} (${DOW[d]})`)).join('');
+  filter.innerHTML=opt('all','전체 보기')+opt('','전체 일정 관련')+days.map(d=>opt(d,`1/${d}만`)).join('');
+  try{$('c-name').value=localStorage.getItem('spain-nick')||''}catch(e){}
+
+  let all=[];
+  const ready=COMMENTS_API.startsWith('https://');
+  const fmt=t=>{const d=new Date(t);return isNaN(d)?'':`${d.getMonth()+1}/${d.getDate()} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`};
+
+  function draw(){
+    const f=filter.value;
+    const rows=all.filter(c=>f==='all'||String(c.day||'')===f);
+    $('c-title').textContent=`의견 ${all.length}개`;
+    if(!rows.length){list.innerHTML=`<li class="c-empty">${all.length?'이 날짜엔 아직 의견이 없어요.':'아직 의견이 없어요. 첫 번째로 남겨보세요.'}</li>`;return;}
+    list.innerHTML=rows.map(c=>{
+      const d=Number(c.day),k=d?cityOf(d):null;
+      const chip=d?`<a class="c-day" href="#d${d}" style="--c:var(--${k});--soft:var(--${k}-soft)">1/${d} ${DOW[d]||''}</a>`:'';
+      return `<li class="c-item"><div class="c-meta"><b>${esc(c.name)}</b>${chip}<time>${fmt(c.t)}</time></div><div class="c-text">${esc(c.text)}</div></li>`;
+    }).join('');
+  }
+
+  // 날짜 카드에 의견 개수 배지
+  function badges(){
+    document.querySelectorAll('.c-count').forEach(el=>el.remove());
+    const n={};all.forEach(c=>{if(c.day)n[c.day]=(n[c.day]||0)+1});
+    Object.entries(n).forEach(([d,cnt])=>{
+      const card=$('d'+d);if(!card)return;
+      const a=document.createElement('a');a.className='c-count';a.href='#comments';a.textContent=`의견 ${cnt}`;
+      a.addEventListener('click',()=>{filter.value=d;draw()});
+      card.querySelector('.date').appendChild(a);
+    });
+  }
+
+  async function load(){
+    if(!ready){list.innerHTML='<li class="c-empty">댓글 서버가 아직 연결되지 않았어요.</li>';return;}
+    try{
+      const r=await fetch(COMMENTS_API);const j=await r.json();
+      all=(j.comments||[]).reverse();draw();badges();
+    }catch(e){list.innerHTML='<li class="c-empty">의견을 불러오지 못했어요. 새로고침해 보세요.</li>';}
+  }
+
+  filter.addEventListener('change',draw);
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();
+    const name=$('c-name').value.trim(),text=$('c-text').value.trim(),day=$('c-day').value;
+    status.className='status';
+    if(!name||!text){status.textContent='닉네임과 내용을 모두 적어주세요.';status.classList.add('err');return;}
+    if(!ready){status.textContent='댓글 서버가 아직 연결되지 않았어요.';status.classList.add('err');return;}
+    btn.disabled=true;status.textContent='등록 중…';
+    try{
+      const r=await fetch(COMMENTS_API,{method:'POST',body:JSON.stringify({name,text,day,website:$('c-hp').value})});
+      const j=await r.json();
+      if(!j.ok)throw new Error(j.error||'fail');
+      try{localStorage.setItem('spain-nick',name)}catch(e){}
+      $('c-text').value='';status.textContent='등록했어요.';
+      filter.value='all';await load();
+    }catch(err){status.textContent='등록하지 못했어요. 잠시 후 다시 눌러주세요.';status.classList.add('err');}
+    finally{btn.disabled=false;}
+  });
+  load();
+})();
+</script>
 </body>
 </html>
