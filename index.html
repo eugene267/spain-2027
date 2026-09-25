@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="2027년 1월 13일–26일 마드리드 · 세비야 · 바르셀로나 여행 일정표">
+<title>España 2027 원정대</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --paper:#F3F5F8;
+  --surface:#FFFFFF;
+  --ink:#141C2B;
+  --ink-2:#4A5568;
+  --ink-3:#7A8599;
+  --line:#DCE2EA;
+  --mad:#B4233C;
+  --svq:#D96A12;
+  --bcn:#1D5FAF;
+  --mad-soft:#F6E3E6;
+  --svq-soft:#FBEBDD;
+  --bcn-soft:#E0EAF7;
+  --tile-a:#1D5FAF;
+  --tile-b:#E9B949;
+  --shadow:0 1px 2px rgba(20,28,43,.06),0 8px 24px rgba(20,28,43,.06);
+  --display:"Unbounded","IBM Plex Sans KR",system-ui,sans-serif;
+  --body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#0F141D;--surface:#171E2A;--ink:#E9EDF3;--ink-2:#B3BCCB;--ink-3:#808B9E;--line:#29324180;
+    --mad:#F0677D;--svq:#F3994A;--bcn:#6EA6F0;
+    --mad-soft:#3A1A22;--svq-soft:#3A2614;--bcn-soft:#15273F;
+    --tile-a:#6EA6F0;--tile-b:#E9B949;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#0F141D;--surface:#171E2A;--ink:#E9EDF3;--ink-2:#B3BCCB;--ink-3:#808B9E;--line:#29324180;
+  --mad:#F0677D;--svq:#F3994A;--bcn:#6EA6F0;
+  --mad-soft:#3A1A22;--svq-soft:#3A2614;--bcn-soft:#15273F;
+  --tile-a:#6EA6F0;--tile-b:#E9B949;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:880px;margin:0 auto;padding-inline:20px;padding-block:0 80px}
+h1,h2,h3{text-wrap:balance;margin:0}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+/* HERO */
+.hero{position:relative;padding-block:56px 32px;display:grid;gap:28px}
+.tiles{position:absolute;right:0;top:40px;width:132px;height:132px;opacity:.9;
+  background:
+   radial-gradient(circle at 50% 50%,var(--tile-b) 0 18%,transparent 19%),
+   conic-gradient(from 45deg,var(--tile-a) 0 25%,transparent 0 50%,var(--tile-a) 0 75%,transparent 0);
+  background-size:44px 44px;border-radius:6px;
+  -webkit-mask:linear-gradient(135deg,#000 30%,transparent 95%);mask:linear-gradient(135deg,#000 30%,transparent 95%)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(48px,11vw,96px);line-height:.95;letter-spacing:-.03em}
+.hero h1 span{display:block;font-size:.38em;font-weight:500;letter-spacing:0;margin-top:14px;color:var(--ink-2);font-family:var(--body)}
+.meta{display:flex;flex-wrap:wrap;gap:10px 28px;align-items:baseline}
+.meta div{display:grid;gap:2px}
+.meta b{font-family:var(--display);font-weight:700;font-size:22px}
+.meta small{font-size:12px;color:var(--ink-3)}
+.dday{font-family:var(--display);font-weight:700;font-size:22px;color:var(--bcn)}
+
+/* ROUTE */
+.route{display:grid;gap:12px;background:var(--surface);border-radius:14px;padding:20px;box-shadow:var(--shadow)}
+.route-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.route-head h2{font-size:15px;font-weight:600}
+.bar{display:grid;grid-template-columns:4fr 3fr 5fr 1fr;gap:3px;height:14px}
+.bar i{border-radius:3px}
+.bar i:nth-child(1),.bar i:nth-child(4){background:var(--mad)}
+.bar i:nth-child(2){background:var(--svq)}
+.bar i:nth-child(3){background:var(--bcn)}
+.ticks{display:grid;grid-template-columns:repeat(13,1fr);font-family:var(--mono);font-size:10px;color:var(--ink-3);margin-top:-6px}
+.ticks span{border-left:1px solid var(--line);padding-left:3px;padding-top:6px}
+.legend{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.legend div{display:grid;gap:1px;font-size:13px}
+.legend b{font-weight:600;display:flex;align-items:center;gap:6px}
+.legend b::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--c)}
+.legend small{color:var(--ink-3);font-family:var(--mono);font-size:11px}
+@media (max-width:560px){.legend{grid-template-columns:repeat(2,1fr)}.ticks span:nth-child(even){color:transparent}}
+
+/* FILTER */
+.filter{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);padding-block:12px;margin-top:28px;display:flex;gap:8px;overflow-x:auto;border-bottom:1px solid var(--line)}
+.filter button{font:inherit;font-size:13px;font-weight:600;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);padding:7px 14px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.filter button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.filter button:focus-visible{outline:2px solid var(--bcn);outline-offset:2px}
+
+/* CITY HEADER */
+.city{margin-top:48px;display:grid;gap:14px}
+.city-top{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+.city h2{font-family:var(--display);font-weight:800;font-size:clamp(34px,7vw,52px);line-height:1;letter-spacing:-.02em;color:var(--c)}
+.city h2 small{display:block;font-family:var(--body);font-size:14px;font-weight:500;color:var(--ink-3);letter-spacing:0;margin-bottom:8px}
+.facts{display:flex;flex-wrap:wrap;gap:6px}
+.facts span{font-size:12px;background:var(--soft);color:var(--ink);padding:4px 10px;border-radius:6px}
+.facts span b{font-family:var(--mono);font-weight:600}
+
+/* DAY */
+.days{display:grid}
+.day{display:grid;grid-template-columns:84px 1fr;gap:20px;padding-block:22px;border-top:1px solid var(--line)}
+.day.today{background:var(--soft);margin-inline:-14px;padding-inline:14px;border-radius:10px}
+.date{display:grid;align-content:start;gap:2px}
+.date b{font-family:var(--display);font-weight:700;font-size:34px;line-height:1;color:var(--c);font-variant-numeric:tabular-nums}
+.date span{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--ink-3);text-transform:uppercase}
+.date em{font-style:normal;font-size:11px;font-weight:600;color:var(--ink-2)}
+.body{display:grid;gap:10px;min-width:0}
+.body h3{font-size:18px;font-weight:700;line-height:1.35}
+.plan{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.plan li{display:grid;grid-template-columns:52px 1fr;gap:10px;font-size:14.5px;color:var(--ink-2)}
+.plan time{font-family:var(--mono);font-size:12.5px;color:var(--ink-3);padding-top:2px;font-variant-numeric:tabular-nums}
+.chip{display:inline-block;font-size:11px;font-weight:600;padding:1px 7px;border-radius:4px;margin-left:6px;vertical-align:1px;border:1px solid currentColor}
+.chip.book{color:var(--mad)}
+.chip.opt{color:var(--ink-3)}
+.chip.foot{color:var(--bcn)}
+.note{font-size:13px;color:var(--ink-3);border-left:2px solid var(--line);padding-left:10px}
+
+/* TICKET */
+.ticket{margin-top:28px;display:grid;grid-template-columns:1fr auto;background:var(--surface);border-radius:12px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.ticket .main{padding:18px 20px;display:grid;gap:10px;min-width:0}
+.ticket .stub{padding:18px 20px;border-left:2px dashed var(--line);display:grid;align-content:center;gap:2px;text-align:center;min-width:110px}
+.ticket .stub{position:relative}
+.stub::before,.stub::after{content:"";position:absolute;width:18px;height:18px;border-radius:50%;background:var(--paper);left:-10px}
+.stub::before{top:-9px}.stub::after{bottom:-9px}
+.t-kind{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.t-route{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.t-route b{font-family:var(--display);font-weight:700;font-size:26px;line-height:1}
+.t-route small{display:block;font-size:12px;color:var(--ink-3);font-weight:400;margin-top:4px;font-family:var(--body)}
+.t-route .arrow{flex:1;min-width:40px;height:1px;background:var(--line);position:relative}
+.t-route .arrow::after{content:"";position:absolute;right:0;top:-4px;border-left:8px solid var(--ink-3);border-top:4px solid transparent;border-bottom:4px solid transparent}
+.t-info{font-size:13px;color:var(--ink-2)}
+.stub b{font-family:var(--display);font-size:24px;line-height:1}
+.stub span{font-family:var(--mono);font-size:11px;color:var(--ink-3)}
+@media (max-width:560px){
+  .ticket{grid-template-columns:1fr}
+  .ticket .stub{border-left:0;border-top:2px dashed var(--line);display:flex;justify-content:space-between;align-items:center;text-align:left}
+  .stub::before,.stub::after{display:none}
+  .day{grid-template-columns:58px 1fr;gap:14px}
+  .date b{font-size:28px}
+  .tiles{width:88px;height:88px;top:28px}
+}
+
+/* INFO */
+.info{margin-top:72px;display:grid;gap:28px}
+.info h2{font-family:var(--display);font-weight:700;font-size:28px;letter-spacing:-.01em}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.panel{background:var(--surface);border-radius:12px;padding:20px;box-shadow:var(--shadow);display:grid;gap:12px;align-content:start}
+.panel h3{font-size:15px;font-weight:700}
+.panel ul{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.panel li{font-size:14px;color:var(--ink-2);display:grid;grid-template-columns:auto 1fr;gap:10px}
+.panel li .mono{font-size:12px;color:var(--ink-3);min-width:40px;padding-top:2px}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--c,var(--ink-3));margin-top:9px}
+footer{margin-top:56px;font-size:12px;color:var(--ink-3);text-align:center;font-family:var(--mono)}
+.hidden-city{display:none}
+@media (prefers-reduced-motion:no-preference){.day,.ticket{transition:opacity .2s}}
+/* COMMENTS */
+.comments{margin-top:72px;display:grid;gap:16px}
+.comments h2{font-family:var(--display);font-weight:700;font-size:28px;letter-spacing:-.01em}
+.comments p{margin:0;color:var(--ink-2);font-size:14px}
+.comments .box{background:var(--surface);border-radius:12px;padding:20px;box-shadow:var(--shadow);min-height:120px}
+img{max-width:100%}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="tiles" aria-hidden="true"></div>
+    <div class="eyebrow">ICN ✈ MAD · 2027.01.13 — 01.26</div>
+    <h1>España<br>2027<span>13박 14일 스페인 일주</span></h1>
+    <div class="meta">
+      <div><b id="dday">D-110</b><small id="dday-label">출발까지</small></div>
+      <div><b>13박</b><small>1/13 수 — 1/26 화</small></div>
+      <div><b>3개 도시</b><small>마드리드 · 세비야 · 바르셀로나</small></div>
+      <div><b>4명</b><small>방 배정은 알아서</small></div>
+    </div>
+
+    <section class="route" aria-label="숙박 일정">
+      <div class="route-head"><h2>숙박 루트</h2></div>
+      <div class="bar" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      <div class="ticks mono" aria-hidden="true">
+        <span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span>
+      </div>
+      <div class="legend">
+        <div style="--c:var(--mad)"><b>마드리드</b><small>4박 · 1/13–17</small></div>
+        <div style="--c:var(--svq)"><b>세비야</b><small>3박 · 1/17–20</small></div>
+        <div style="--c:var(--bcn)"><b>바르셀로나</b><small>5박 · 1/20–25</small></div>
+        <div style="--c:var(--mad)"><b>마드리드</b><small>1박 · 1/25–26</small></div>
+      </div>
+    </section>
+  </header>
+
+  <nav class="filter" aria-label="도시 필터">
+    <button type="button" id="f-all" data-f="all" aria-pressed="true">전체 일정</button>
+    <button type="button" id="f-mad" data-f="mad" aria-pressed="false">마드리드</button>
+    <button type="button" id="f-svq" data-f="svq" aria-pressed="false">세비야</button>
+    <button type="button" id="f-bcn" data-f="bcn" aria-pressed="false">바르셀로나</button>
+    <button type="button" id="f-move" data-f="move" aria-pressed="false">이동만 보기</button>
+  </nav>
+
+  <main id="timeline"></main>
+
+  <section class="info">
+    <h2>출발 전에 챙길 것</h2>
+    <div class="grid2">
+      <div class="panel">
+        <h3>미리 예약해야 하는 곳</h3>
+        <ul>
+          <li><span class="mono">1/14</span><span>프라도 미술관 (무료입장 18–20시는 줄이 김)</span></li>
+          <li><span class="mono">1/15</span><span>베르나베우 스타디움 투어</span></li>
+          <li><span class="mono">1/17</span><span>마드리드 → 세비야 기차 (AVE · iryo · Ouigo 비교)</span></li>
+          <li><span class="mono">1/18</span><span>세비야 알카사르 · 대성당 · 플라멩코 공연</span></li>
+          <li><span class="mono">1/20</span><span>세비야 → 바르셀로나 항공 (위탁수하물 포함 요금 확인)</span></li>
+          <li><span class="mono">1/21</span><span>사그라다 파밀리아 (보통 몇 주 전 매진)</span></li>
+          <li><span class="mono">1/22</span><span>구엘 공원 입장 시간 지정권</span></li>
+          <li><span class="mono">1/25</span><span>바르셀로나 → 마드리드 기차</span></li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>1월 스페인 날씨</h3>
+        <ul>
+          <li><span class="dot" style="--c:var(--mad)"></span><span><b>마드리드</b> 최저 3° / 최고 11°. 건조하고 아침저녁 꽤 추움. 패딩 필수</span></li>
+          <li><span class="dot" style="--c:var(--svq)"></span><span><b>세비야</b> 최저 6° / 최고 16°. 낮엔 맨투맨 가능, 해 지면 쌀쌀</span></li>
+          <li><span class="dot" style="--c:var(--bcn)"></span><span><b>바르셀로나</b> 최저 5° / 최고 14°. 바닷바람 있음</span></li>
+          <li><span class="dot"></span><span>해 지는 시간 17:40–18:15쯤. 해 뜨는 건 8시 반 넘어서</span></li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>스페인 생활 리듬</h3>
+        <ul>
+          <li><span class="mono">14:00</span><span>점심. 평일 메뉴 델 디아(Menú del día) 가성비 좋음</span></li>
+          <li><span class="mono">21:00</span><span>저녁. 20시 전엔 식당 대부분 한산하거나 안 엶</span></li>
+          <li><span class="mono">일요일</span><span>상점 대부분 휴무. 바르셀로나 보케리아 시장도 일요일 휴무</span></li>
+          <li><span class="mono">1월</span><span>레바하스(Rebajas) 겨울 세일 기간. 자라·망고·엘코르테잉글레스</span></li>
+          <li><span class="mono">시차</span><span>한국이 8시간 빠름 (스페인 12시 = 한국 20시)</span></li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>안전 &amp; 교통</h3>
+        <ul>
+          <li><span class="dot" style="--c:var(--mad)"></span><span>소매치기 조심. 특히 바르셀로나 람블라스, 지하철, 마드리드 솔 광장</span></li>
+          <li><span class="dot" style="--c:var(--mad)"></span><span>폰은 뒷주머니 금지, 테라스 테이블 위에 두지 않기</span></li>
+          <li><span class="dot"></span><span>마드리드 지하철: 교통카드(Tarjeta Multi)에 10회권 충전하면 여럿이 같이 써도 됨</span></li>
+          <li><span class="dot"></span><span>바르셀로나: T-casual 10회권은 1인용. 4명이면 각자 1장씩</span></li>
+          <li><span class="dot"></span><span>축구 직관 원하면 경기 일정이 보통 2–3주 전에 확정됨. 그때 예매</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="comments" id="comments">
+    <h2>리뷰 &amp; 건의사항</h2>
+    <p>가고 싶은 곳, 빼고 싶은 일정, 맛집 추천 다 여기에. 로그인 없이 닉네임만 쓰면 돼요.</p>
+    <div class="box">
+      <div id="cusdis_thread" data-host="https://cusdis.com" data-app-id="YOUR_CUSDIS_APP_ID" data-page-id="spain-2027-itinerary" data-page-title="España 2027 일정표" data-theme="auto"></div>
+    </div>
+  </section>
+
+  <footer>¡Buen viaje, chicos! · 일정은 초안. 날씨·경기 일정 보고 조정</footer>
+</div>
+
+<script>
+const C={mad:{c:'var(--mad)',s:'var(--mad-soft)'},svq:{c:'var(--svq)',s:'var(--svq-soft)'},bcn:{c:'var(--bcn)',s:'var(--bcn-soft)'}};
+const CITIES={
+  mad1:{key:'mad',name:'Madrid',ko:'마드리드 · 4박',facts:[['기온','3–11°'],['일몰','약 18:05'],['숙소','1/13 체크인 → 1/17 체크아웃']]},
+  svq:{key:'svq',name:'Sevilla',ko:'세비야 · 3박',facts:[['기온','6–16°'],['일몰','약 18:15'],['숙소','1/17 체크인 → 1/20 체크아웃']]},
+  bcn:{key:'bcn',name:'Barcelona',ko:'바르셀로나 · 5박',facts:[['기온','5–14°'],['일몰','약 17:40'],['숙소','1/20 체크인 → 1/25 체크아웃']]},
+  mad2:{key:'mad',name:'Madrid',ko:'다시 마드리드 · 1박',facts:[['숙소','1/25 체크인 → 1/26 체크아웃'],['공항','바라하스 MAD']]}
+};
+// [time, text, chip]
+const PLAN=[
+ {sec:'mad1',ticket:{kind:'Flight · 항공',from:['ICN','인천'],to:['MAD','마드리드 바라하스'],info:'직항 기준 약 14–15시간. 공항 → 시내는 공항버스(Exprés Aeropuerto, 약 €5) 또는 지하철 8호선',stub:['1/13','수요일']}},
+ {d:13,dow:'수',sec:'mad1',title:'도착, 그리고 첫 추로스',plan:[
+   ['오후','마드리드 도착, 숙소 체크인'],
+   ['17:00','솔 광장 → 그란비아 산책, 유심/이심 개통 확인'],
+   ['21:00','첫 저녁은 가볍게 타파스 바'],
+   ['23:00','산 히네스(San Ginés)에서 초코라테 콘 추로스']],
+   note:'장거리 비행 후라 첫날은 무리하지 않기.'},
+ {d:14,dow:'목',sec:'mad1',title:'왕궁과 구시가지',plan:[
+   ['10:00','마드리드 왕궁 → 알무데나 대성당'],
+   ['12:30','마요르 광장, 산 미겔 시장에서 간식'],
+   ['14:30','점심: 보카디요 데 칼라마레스(오징어 튀김 샌드위치)'],
+   ['18:00','프라도 미술관','book'],
+   ['21:30','라 라티나 카바 바하(Cava Baja) 거리 타파스 투어']]},
+ {d:15,dow:'금',sec:'mad1',title:'레티로 공원 & 베르나베우',plan:[
+   ['10:00','레티로 공원, 크리스탈 궁전'],
+   ['12:00','레이나 소피아 미술관 (게르니카)','opt'],
+   ['15:30','산티아고 베르나베우 스타디움 투어','book'],
+   ['19:00','시르쿨로 데 베야스 아르테스 루프탑에서 야경'],
+   ['22:00','말라사냐 바 거리에서 불금']]},
+ {d:16,dow:'토',sec:'mad1',title:'근교 당일치기: 톨레도 or 세고비아',plan:[
+   ['09:00','톨레도: 아토차역에서 고속열차 약 33분 / 세고비아: 차마르틴역에서 약 30분'],
+   ['13:30','세고비아라면 수도교 보고 새끼돼지 통구이(코치니요)'],
+   ['18:00','마드리드 복귀'],
+   ['밤','레알 · 아틀레티코 홈경기 있으면 직관','foot']],
+   note:'주말 경기 일정은 보통 2–3주 전에 나옴. 경기 있으면 당일치기를 금요일로 바꾸기.'},
+ {sec:'svq',ticket:{kind:'Train · 고속열차',from:['MAD','Puerta de Atocha'],to:['SVQ','Santa Justa'],info:'AVE · iryo · Ouigo 약 2시간 30분. 오전 엘 라스트로 벼룩시장 보고 오후 기차 추천',stub:['1/17','일요일']}},
+ {d:17,dow:'일',sec:'svq',title:'벼룩시장 들렀다가 남쪽으로',plan:[
+   ['10:00','마드리드 엘 라스트로 일요 벼룩시장'],
+   ['13:00','체크아웃, 아토차역으로'],
+   ['17:00','세비야 도착, 숙소 체크인'],
+   ['19:00','산타 크루스 골목 산책, 저녁은 타파스']]},
+ {d:18,dow:'월',sec:'svq',title:'알카사르와 대성당',plan:[
+   ['09:30','세비야 알카사르 (왕좌의 게임 도른 촬영지)','book'],
+   ['12:30','세비야 대성당 + 히랄다 탑','book'],
+   ['14:30','점심: 살모레호, 이베리코 하몽'],
+   ['17:30','메트로폴 파라솔(라스 세타스) 전망대에서 일몰'],
+   ['20:00','플라멩코 공연','book']]},
+ {d:19,dow:'화',sec:'svq',title:'스페인 광장, 그리고 트리아나',plan:[
+   ['10:00','스페인 광장 → 마리아 루이사 공원'],
+   ['13:00','황금의 탑, 과달키비르 강변'],
+   ['15:00','트리아나 다리 건너 트리아나 시장, 도자기 거리'],
+   ['21:00','트리아나 강변 바에서 마지막 밤']],
+   note:'대안: 코르도바 당일치기 (고속열차 약 45분, 메스키타).'},
+ {sec:'bcn',ticket:{kind:'Flight · 항공',from:['SVQ','세비야'],to:['BCN','엘 프라트'],info:'부엘링 등 약 1시간 45분. 저가항공은 위탁수하물 별도인 경우 많음. 공항 → 시내 에어로버스 약 35분',stub:['1/20','수요일']}},
+ {d:20,dow:'수',sec:'bcn',title:'바르셀로나 입성',plan:[
+   ['오전','세비야 → 바르셀로나 이동'],
+   ['15:00','숙소 체크인'],
+   ['16:30','고딕 지구 → 바르셀로네타 해변'],
+   ['21:00','해산물 빠에야']]},
+ {d:21,dow:'목',sec:'bcn',title:'가우디 데이',plan:[
+   ['09:00','사그라다 파밀리아 (탑 입장 포함 추천)','book'],
+   ['12:00','산트 파우 병원 (걸어서 10분)','opt'],
+   ['14:00','라 보케리아 시장에서 점심'],
+   ['16:30','그라시아 거리: 카사 바트요, 카사 밀라 외관'],
+   ['21:00','엘 보른 지구 저녁 & 바']]},
+ {d:22,dow:'금',sec:'bcn',title:'구엘 공원과 도시 전망',plan:[
+   ['09:30','구엘 공원','book'],
+   ['12:00','그라시아 동네 골목 구경, 점심'],
+   ['16:30','벙커 델 카르멜에서 일몰 (바르셀로나 최고 뷰)'],
+   ['21:30','불금: 엘 라발 or 포블레노우']]},
+ {d:23,dow:'토',sec:'bcn',title:'몬세라트 당일치기',plan:[
+   ['08:30','에스파냐 광장역 R5 열차 → 산악열차 or 케이블카'],
+   ['11:00','몬세라트 수도원, 검은 성모상'],
+   ['13:00','트레킹 코스 (산 호안 전망대)','opt'],
+   ['18:00','시내 복귀'],
+   ['밤','바르셀로나 홈경기 있으면 스포티파이 캄 노우 직관','foot']]},
+ {d:24,dow:'일',sec:'bcn',title:'몬주익 & 자유 일정',plan:[
+   ['10:00','캄 노우 투어 (경기 못 봤다면)','opt'],
+   ['13:00','몬주익 언덕: 몬주익 성, 올림픽 경기장'],
+   ['16:00','MNAC 앞 계단에서 도시 전망'],
+   ['21:00','바르셀로나 마지막 밤']],
+   note:'일요일은 대부분 상점 휴무. 쇼핑은 평일에.'},
+ {sec:'mad2',ticket:{kind:'Train · 고속열차',from:['BCN','Sants'],to:['MAD','Atocha'],info:'AVE · iryo · Ouigo 약 2시간 30분–3시간. 짐 많으면 오전 기차 타고 오후에 쇼핑',stub:['1/25','월요일']}},
+ {d:25,dow:'월',sec:'mad2',title:'마지막 밤은 다시 마드리드',plan:[
+   ['13:00','마드리드 도착, 숙소 체크인'],
+   ['15:00','레바하스 세일 쇼핑: 엘 코르테 잉글레스, 그란비아'],
+   ['21:00','마지막 만찬: 보틴(세계에서 가장 오래된 식당) 코치니요','book'],
+   ['23:00','못 다 한 추로스 한 번 더']]},
+ {d:26,dow:'화',sec:'mad2',title:'Adiós, España',plan:[
+   ['오전','체크아웃, 바라하스 공항으로 (출발 3시간 전 도착)'],
+   ['공항','택스 리펀드 먼저 처리하고 짐 부치기']]},
+ {sec:'end',ticket:{kind:'Flight · 항공',from:['MAD','마드리드'],to:['ICN','인천'],info:'한국 도착은 다음날(1/27). 편명·출발시간 확정되면 여기 적어두기',stub:['1/26','화요일']}}
+];
+const CHIP={book:['예약필수','book'],opt:['선택','opt'],foot:['축구','foot']};
+const esc=s=>String(s).replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));
+
+function render(){
+  const root=document.getElementById('timeline');
+  let html='',cur=null,open=false;
+  const close=()=>{if(open){html+='</div></section>';open=false;}};
+  for(const p of PLAN){
+    const key=p.sec==='end'?'mad':CITIES[p.sec].key, col=C[key];
+    if(p.ticket){
+      close();
+      const t=p.ticket;
+      html+=`<article class="ticket" data-city="move" style="--c:${col.c}">
+        <div class="main"><div class="t-kind">${esc(t.kind)}</div>
+          <div class="t-route"><b>${t.from[0]}<small>${esc(t.from[1])}</small></b><span class="arrow"></span><b style="color:${col.c}">${t.to[0]}<small>${esc(t.to[1])}</small></b></div>
+          <div class="t-info">${esc(t.info)}</div></div>
+        <div class="stub"><b class="mono">${t.stub[0]}</b><span>${t.stub[1]}</span></div></article>`;
+      continue;
+    }
+    if(cur!==p.sec){
+      close();cur=p.sec;const c=CITIES[p.sec];
+      html+=`<section class="city" data-city="${c.key}" style="--c:${col.c};--soft:${col.s}">
+        <div class="city-top"><h2><small>${esc(c.ko)}</small>${c.name}</h2>
+        <div class="facts">${c.facts.map(f=>`<span>${esc(f[0])} <b>${esc(f[1])}</b></span>`).join('')}</div></div><div class="days">`;
+      open=true;
+    }
+    const n=p.d-12;
+    html+=`<article class="day" id="d${p.d}" data-date="2027-01-${p.d}">
+      <div class="date"><b>${p.d}</b><span>JAN · ${p.dow}</span><em>Day ${n}</em></div>
+      <div class="body"><h3>${esc(p.title)}</h3><ul class="plan">${p.plan.map(([t,x,c])=>`<li><time>${esc(t)}</time><span>${esc(x)}${c?`<span class="chip ${CHIP[c][1]}">${CHIP[c][0]}</span>`:''}</span></li>`).join('')}</ul>
+      ${p.note?`<div class="note">${esc(p.note)}</div>`:''}</div></article>`;
+  }
+  close();
+  root.innerHTML=html;
+}
+render();
+
+// D-day & today highlight
+(function(){
+  const now=new Date(),today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  const start=new Date(2027,0,13),end=new Date(2027,0,26),day=864e5;
+  const el=document.getElementById('dday'),lb=document.getElementById('dday-label');
+  const diff=Math.round((start-today)/day);
+  if(diff>0){el.textContent='D-'+diff;lb.textContent='출발까지';}
+  else if(today<=end){el.textContent='Day '+(1-diff);lb.textContent='여행 중!';
+    const d=document.getElementById('d'+today.getDate());if(d)d.classList.add('today');}
+  else{el.textContent='완료';lb.textContent='다녀왔음';}
+})();
+
+// filter
+(function(){
+  const btns=[...document.querySelectorAll('.filter button')];
+  function apply(f){
+    btns.forEach(b=>b.setAttribute('aria-pressed',b.dataset.f===f));
+    document.querySelectorAll('#timeline > [data-city]').forEach(el=>{
+      el.classList.toggle('hidden-city',!(f==='all'||el.dataset.city===f));
+    });
+    try{localStorage.setItem('spain-filter',f)}catch(e){}
+  }
+  btns.forEach(b=>b.addEventListener('click',()=>apply(b.dataset.f)));
+  let saved='all';try{saved=localStorage.getItem('spain-filter')||'all'}catch(e){}
+  apply(btns.some(b=>b.dataset.f===saved)?saved:'all');
+})();
+</script>
+<script>document.getElementById('cusdis_thread').dataset.pageUrl=location.href.split('#')[0];</script>
+<script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+</body>
+</html>
