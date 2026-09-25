@@ -122,6 +122,12 @@ h1,h2,h3{text-wrap:balance;margin:0}
 .chip.opt{color:var(--ink-3)}
 .chip.foot{color:var(--bcn)}
 .note{font-size:13px;color:var(--ink-3);border-left:2px solid var(--line);padding-left:10px}
+.shot{position:relative;margin:2px 0 4px;border-radius:10px;overflow:hidden;aspect-ratio:2.2/1;max-width:100%;background:var(--soft)}
+.shot img{display:block;width:100%;height:100%;object-fit:cover}
+.shot figcaption{position:absolute;right:0;bottom:0;left:0;padding:18px 10px 6px;text-align:right;background:linear-gradient(transparent,rgba(0,0,0,.45))}
+.shot figcaption a{font-size:10.5px;color:rgba(255,255,255,.88);text-decoration:none}
+.shot figcaption a:hover{text-decoration:underline}
+@media (max-width:560px){.shot{aspect-ratio:16/10}}
 
 /* TICKET */
 .ticket{margin-top:28px;display:grid;grid-template-columns:1fr auto;background:var(--surface);border-radius:12px;box-shadow:var(--shadow);position:relative;overflow:hidden}
@@ -350,7 +356,7 @@ const PLAN=[
    ['21:00','첫 저녁은 가볍게 타파스 바'],
    ['23:00','산 히네스(San Ginés)에서 초코라테 콘 추로스']],
    note:'장거리 비행 후라 첫날은 무리하지 않기.'},
- {d:14,dow:'목',sec:'mad1',title:'왕궁과 구시가지',plan:[
+ {d:14,dow:'목',sec:'mad1',img:'palace',title:'왕궁과 구시가지',plan:[
    ['10:00','마드리드 왕궁 → 알무데나 대성당'],
    ['12:30','마요르 광장, 산 미겔 시장에서 간식'],
    ['14:30','점심: 보카디요 데 칼라마레스(오징어 튀김 샌드위치)'],
@@ -362,7 +368,7 @@ const PLAN=[
    ['15:30','산티아고 베르나베우 스타디움 투어','book'],
    ['19:00','시르쿨로 데 베야스 아르테스 루프탑에서 야경'],
    ['22:00','말라사냐 바 거리에서 불금']]},
- {d:16,dow:'토',sec:'mad1',title:'근교 당일치기: 톨레도 or 세고비아',plan:[
+ {d:16,dow:'토',sec:'mad1',img:'toledo',title:'근교 당일치기: 톨레도 or 세고비아',plan:[
    ['09:00','톨레도: 아토차역에서 고속열차 약 33분 / 세고비아: 차마르틴역에서 약 30분'],
    ['13:30','세고비아라면 수도교 보고 새끼돼지 통구이(코치니요)'],
    ['18:00','마드리드 복귀'],
@@ -374,13 +380,13 @@ const PLAN=[
    ['13:00','체크아웃, 아토차역으로'],
    ['17:00','세비야 도착, 숙소 체크인'],
    ['19:00','산타 크루스 골목 산책, 저녁은 타파스']]},
- {d:18,dow:'월',sec:'svq',title:'알카사르와 대성당',plan:[
+ {d:18,dow:'월',sec:'svq',img:'alcazar',title:'알카사르와 대성당',plan:[
    ['09:30','세비야 알카사르 (왕좌의 게임 도른 촬영지)','book'],
    ['12:30','세비야 대성당 + 히랄다 탑','book'],
    ['14:30','점심: 살모레호, 이베리코 하몽'],
    ['17:30','메트로폴 파라솔(라스 세타스) 전망대에서 일몰'],
    ['20:00','플라멩코 공연','book']]},
- {d:19,dow:'화',sec:'svq',title:'스페인 광장, 그리고 트리아나',plan:[
+ {d:19,dow:'화',sec:'svq',img:'plaza',title:'스페인 광장, 그리고 트리아나',plan:[
    ['10:00','스페인 광장 → 마리아 루이사 공원'],
    ['13:00','황금의 탑, 과달키비르 강변'],
    ['15:00','트리아나 다리 건너 트리아나 시장, 도자기 거리'],
@@ -392,18 +398,18 @@ const PLAN=[
    ['15:00','숙소 체크인'],
    ['16:30','고딕 지구 → 바르셀로네타 해변'],
    ['21:00','해산물 빠에야']]},
- {d:21,dow:'목',sec:'bcn',title:'가우디 데이',plan:[
+ {d:21,dow:'목',sec:'bcn',img:'sagrada',title:'가우디 데이',plan:[
    ['09:00','사그라다 파밀리아 (탑 입장 포함 추천)','book'],
    ['12:00','산트 파우 병원 (걸어서 10분)','opt'],
    ['14:00','라 보케리아 시장에서 점심'],
    ['16:30','그라시아 거리: 카사 바트요, 카사 밀라 외관'],
    ['21:00','엘 보른 지구 저녁 & 바']]},
- {d:22,dow:'금',sec:'bcn',title:'구엘 공원과 도시 전망',plan:[
+ {d:22,dow:'금',sec:'bcn',img:'guell',title:'구엘 공원과 도시 전망',plan:[
    ['09:30','구엘 공원','book'],
    ['12:00','그라시아 동네 골목 구경, 점심'],
    ['16:30','벙커 델 카르멜에서 일몰 (바르셀로나 최고 뷰)'],
    ['21:30','불금: 엘 라발 or 포블레노우']]},
- {d:23,dow:'토',sec:'bcn',title:'몬세라트 당일치기',plan:[
+ {d:23,dow:'토',sec:'bcn',img:'montserrat',title:'몬세라트 당일치기',plan:[
    ['08:30','에스파냐 광장역 R5 열차 → 산악열차 or 케이블카'],
    ['11:00','몬세라트 수도원, 검은 성모상'],
    ['13:00','트레킹 코스 (산 호안 전망대)','opt'],
@@ -427,6 +433,18 @@ const PLAN=[
  {sec:'end',ticket:{kind:'Flight · 항공',from:['MAD','마드리드'],to:['ICN','인천'],info:'한국 도착은 다음날(1/27). 편명·출발시간 확정되면 여기 적어두기',stub:['1/26','화요일']}}
 ];
 const CHIP={book:['예약필수','book'],opt:['선택','opt'],foot:['축구','foot']};
+// 사진: Wikimedia Commons (각 사진의 저작자·라이선스 표기)
+const WM='https://thumb.wikimedia.org/wikipedia/commons/thumb/';
+const IMG={
+  palace:{src:WM+'9/9b/Palacio_Real_de_Madrid_Julio_2016_%28cropped%29.jpg/960px-Palacio_Real_de_Madrid_Julio_2016_%28cropped%29.jpg',w:960,h:726,alt:'마드리드 왕궁 정면',by:'Tim Adams',lic:'CC BY-SA 4.0',page:'https://commons.wikimedia.org/wiki/File:Palacio_Real_de_Madrid_Julio_2016_(cropped).jpg'},
+  toledo:{src:WM+'6/65/Toledo_%2837737041515%29.jpg/960px-Toledo_%2837737041515%29.jpg',w:960,h:720,alt:'강 건너에서 본 톨레도 구시가지',by:'Dmitry Dzhus',lic:'CC BY 2.0',page:'https://commons.wikimedia.org/wiki/File:Toledo_(37737041515).jpg'},
+  alcazar:{src:WM+'c/c9/Sevilla-2-2_%2848040287512%29-edit.jpg/960px-Sevilla-2-2_%2848040287512%29-edit.jpg',w:960,h:720,alt:'세비야 알카사르 정원과 궁전',by:'Ajay Suresh, edited by MenkinAlRire',lic:'CC BY 2.0',page:'https://commons.wikimedia.org/wiki/File:Sevilla-2-2_(48040287512)-edit.jpg'},
+  plaza:{src:WM+'b/b6/Plaza_de_Espa%C3%B1a_%28Sevilla%29_-_01.jpg/960px-Plaza_de_Espa%C3%B1a_%28Sevilla%29_-_01.jpg',w:960,h:640,alt:'세비야 스페인 광장',by:'Carlos Delgado',lic:'CC BY-SA 4.0',page:'https://commons.wikimedia.org/wiki/File:Plaza_de_Espa%C3%B1a_(Sevilla)_-_01.jpg'},
+  sagrada:{src:WM+'e/ef/SF_maig_2_cropped.jpg/960px-SF_maig_2_cropped.jpg',w:960,h:1397,pos:'50% 30%',alt:'사그라다 파밀리아',by:'Canaan',lic:'CC BY-SA 4.0',page:'https://commons.wikimedia.org/wiki/File:SF_maig_2_cropped.jpg'},
+  guell:{src:WM+'3/33/Parc_guell_-_panoramio.jpg/960px-Parc_guell_-_panoramio.jpg',w:960,h:720,alt:'구엘 공원 타일 벤치와 전망',by:'essetefano',lic:'CC BY 3.0',page:'https://commons.wikimedia.org/wiki/File:Parc_guell_-_panoramio.jpg'},
+  montserrat:{src:WM+'d/d5/Abbey_of_Montserrat_02.jpg/960px-Abbey_of_Montserrat_02.jpg',w:960,h:662,alt:'바위산 아래 몬세라트 수도원',by:'Bernard Gagnon',lic:'CC BY-SA 3.0',page:'https://commons.wikimedia.org/wiki/File:Abbey_of_Montserrat_02.jpg'}
+};
+const shot=i=>`<figure class="shot"><img src="${i.src}" width="${i.w}" height="${i.h}" alt="${escA(i.alt)}" loading="lazy" decoding="async"${i.pos?` style="object-position:${i.pos}"`:''}><figcaption><a href="${i.page}" target="_blank" rel="noopener">사진 ${esc(i.by)} · ${i.lic}</a></figcaption></figure>`;
 const esc=s=>String(s).replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));
 const escA=s=>esc(s).replace(/"/g,'&quot;');
 
@@ -457,7 +475,7 @@ function render(){
     const n=p.d-12;
     html+=`<article class="day" id="d${p.d}" data-date="2027-01-${p.d}">
       <div class="date"><b>${p.d}</b><span>JAN · ${p.dow}</span><em>Day ${n}</em></div>
-      <div class="body"><h3>${esc(p.title)}</h3><ul class="plan">${p.plan.map(([t,x,c])=>`<li><button type="button" class="item" data-target="${escA(t+' '+x)}"><time>${esc(t)}</time><span>${esc(x)}${c?`<span class="chip ${CHIP[c][1]}">${CHIP[c][0]}</span>`:''}</span><span class="aux"><span class="n" hidden></span><span class="add">＋ 의견</span></span></button></li>`).join('')}</ul>
+      <div class="body"><h3>${esc(p.title)}</h3>${p.img?shot(IMG[p.img]):''}<ul class="plan">${p.plan.map(([t,x,c])=>`<li><button type="button" class="item" data-target="${escA(t+' '+x)}"><time>${esc(t)}</time><span>${esc(x)}${c?`<span class="chip ${CHIP[c][1]}">${CHIP[c][0]}</span>`:''}</span><span class="aux"><span class="n" hidden></span><span class="add">＋ 의견</span></span></button></li>`).join('')}</ul>
       ${p.note?`<div class="note">${esc(p.note)}</div>`:''}
       <div class="thread" data-day="${p.d}"><ul class="t-list"></ul><button type="button" class="ghost" data-target="">＋ 이 날 전체에 의견</button><div class="slot"></div></div></div></article>`;
   }
