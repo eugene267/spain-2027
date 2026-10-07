@@ -104,6 +104,15 @@ h1,h2,h3{text-wrap:balance;margin:0}
 .facts{display:flex;flex-wrap:wrap;gap:6px}
 .facts span{font-size:12px;background:var(--soft);color:var(--ink);padding:4px 10px;border-radius:6px}
 .facts span b{font-family:var(--mono);font-weight:600}
+.stay{display:flex;justify-content:space-between;align-items:center;gap:8px 16px;flex-wrap:wrap;background:var(--surface);border-left:3px solid var(--c);border-radius:10px;padding:12px 16px;box-shadow:var(--shadow)}
+.stay-main{display:grid;gap:2px;min-width:0}
+.stay-main b{font-size:15px}
+.stay-main a{color:inherit;text-decoration-color:var(--line);text-underline-offset:3px}
+.stay-main a:hover{text-decoration-color:currentColor}
+.stay-main small{font-size:12.5px;color:var(--ink-3)}
+.stay-price{display:grid;justify-items:end;gap:1px}
+.stay-price b{font-family:var(--mono);font-size:16px;font-weight:600}
+.stay-price small{font-size:11px;color:var(--ink-3)}
 
 /* DAY */
 .days{display:grid}
@@ -245,7 +254,7 @@ img{max-width:100%}
       <div><b id="dday">D-110</b><small id="dday-label">출발까지</small></div>
       <div><b>13박</b><small>1/13 수 — 1/26 화</small></div>
       <div><b>3개 도시</b><small>마드리드 · 세비야 · 바르셀로나</small></div>
-      <div><b>4명</b><small>세찬 · 윤우 · 준서 · 유진</small></div>
+      <div><b>3명</b><small>세찬 · 윤우 · 유진</small></div>
     </div>
 
     <section class="route" aria-label="숙박 일정">
@@ -315,7 +324,7 @@ img{max-width:100%}
           <li><span class="dot" style="--c:var(--mad)"></span><span>소매치기 조심. 특히 바르셀로나 람블라스, 지하철, 마드리드 솔 광장</span></li>
           <li><span class="dot" style="--c:var(--mad)"></span><span>폰은 뒷주머니 금지, 테라스 테이블 위에 두지 않기</span></li>
           <li><span class="dot"></span><span>마드리드 지하철: 교통카드(Tarjeta Multi)에 10회권 충전하면 여럿이 같이 써도 됨</span></li>
-          <li><span class="dot"></span><span>바르셀로나: T-casual 10회권은 1인용. 4명이면 각자 1장씩</span></li>
+          <li><span class="dot"></span><span>바르셀로나: T-casual 10회권은 1인용. 3명이면 각자 1장씩</span></li>
           <li><span class="dot"></span><span>축구 직관 원하면 경기 일정이 보통 2–3주 전에 확정됨. 그때 예매</span></li>
         </ul>
       </div>
@@ -341,11 +350,18 @@ img{max-width:100%}
 <script>
 const C={mad:{c:'var(--mad)',s:'var(--mad-soft)'},svq:{c:'var(--svq)',s:'var(--svq-soft)'},bcn:{c:'var(--bcn)',s:'var(--bcn-soft)'}};
 const CITIES={
-  mad1:{key:'mad',name:'Madrid',ko:'마드리드 · 4박',facts:[['기온','3–11°'],['일몰','약 18:05'],['숙소','1/13 체크인 → 1/17 체크아웃']]},
-  svq:{key:'svq',name:'Sevilla',ko:'세비야 · 3박',facts:[['기온','6–16°'],['일몰','약 18:15'],['숙소','1/17 체크인 → 1/20 체크아웃']]},
-  bcn:{key:'bcn',name:'Barcelona',ko:'바르셀로나 · 5박',facts:[['기온','5–14°'],['일몰','약 17:40'],['숙소','1/20 체크인 → 1/25 체크아웃']]},
-  mad2:{key:'mad',name:'Madrid',ko:'다시 마드리드 · 1박',facts:[['숙소','1/25 체크인 → 1/26 체크아웃'],['공항','바라하스 MAD']]}
+  mad1:{key:'mad',name:'Madrid',ko:'마드리드 · 4박',facts:[['기온','3–11°'],['일몰','약 18:05'],['숙소','1/13 체크인 → 1/17 체크아웃']],
+    stay:{name:'마타데로 근처 로프트',url:'https://www.airbnb.co.kr/rooms/971509498812660178?adults=3&check_in=2027-01-13&check_out=2027-01-17',desc:'로프트 전체 · 더블 1 + 이층 침대 1 · 욕실 1 · 침대로 가는 계단이 가파름',price:661793,nights:4}},
+  svq:{key:'svq',name:'Sevilla',ko:'세비야 · 3박',facts:[['기온','6–16°'],['일몰','약 18:15'],['숙소','1/17 체크인 → 1/20 체크아웃']],
+    stay:{name:'히스팔리스 트리아나 125',url:'https://www.airbnb.co.kr/rooms/635203765526746475?adults=3&check_in=2027-01-17&check_out=2027-01-20',desc:'숙소 전체 · 침대 1 + 소파베드 1 · 한 명은 소파베드',price:280395,nights:3}},
+  bcn:{key:'bcn',name:'Barcelona',ko:'바르셀로나 · 5박',facts:[['기온','5–14°'],['일몰','약 17:40'],['숙소','1/20 체크인 → 1/25 체크아웃']],
+    stay:{name:'커플을 위한 이상적인 객실',url:'https://www.airbnb.co.kr/rooms/24392074?adults=3&check_in=2027-01-20&check_out=2027-01-25',desc:'바달로나 호스트 집 개인실 · 퀸 + 싱글 소파베드 · 전용 욕실 · 반려견 있음 · 시내까지 약 20분 · 관광세 별도 가능(약 €13.50)',price:725110,nights:5}},
+  mad2:{key:'mad',name:'Madrid',ko:'다시 마드리드 · 1박',facts:[['숙소','1/25 체크인 → 1/26 체크아웃'],['공항','바라하스 MAD']],
+    stay:{name:'전용 욕실 있는 객실',url:'https://www.airbnb.co.kr/rooms/1208550686266104086?adults=3&check_in=2027-01-25&check_out=2027-01-26',desc:'호스트 집 16㎡ 개인실 · 135cm 침대 + 80cm 접이식 침대 · 전용 욕실',price:114570,nights:1}}
 };
+const won=n=>'₩'+n.toLocaleString('ko-KR');
+const stayHTML=s=>`<div class="stay"><div class="stay-main"><b><a href="${s.url}" target="_blank" rel="noopener">${esc(s.name)}</a><span class="chip opt">임시</span></b><small>${esc(s.desc)}</small></div>
+  <div class="stay-price"><b>${won(s.price)}</b><small>3명 · ${s.nights}박 합계 · 10/7 Airbnb 표시액</small></div></div>`;
 // [time, text, chip]
 const PLAN=[
  {sec:'mad1',ticket:{kind:'Flight · 항공',from:['ICN','인천'],to:['MAD','마드리드 바라하스'],info:'직항 기준 약 14–15시간. 공항 → 시내는 공항버스(Exprés Aeropuerto, 약 €5) 또는 지하철 8호선',stub:['1/13','수요일']}},
@@ -468,7 +484,7 @@ function render(){
       close();cur=p.sec;const c=CITIES[p.sec];
       html+=`<section class="city" data-city="${c.key}" style="--c:${col.c};--soft:${col.s}">
         <div class="city-top"><h2><small>${esc(c.ko)}</small>${c.name}</h2>
-        <div class="facts">${c.facts.map(f=>`<span>${esc(f[0])} <b>${esc(f[1])}</b></span>`).join('')}</div></div><div class="days">`;
+        <div class="facts">${c.facts.map(f=>`<span>${esc(f[0])} <b>${esc(f[1])}</b></span>`).join('')}</div></div>${c.stay?stayHTML(c.stay):''}<div class="days">`;
       open=true;
     }
     const n=p.d-12;
@@ -516,8 +532,8 @@ const COMMENTS_API='https://script.google.com/macros/s/AKfycbyFjO7ohvOi5uNP4ol7O
 
 (function(){
   const $=id=>document.getElementById(id);
-  const NAMES=['세찬','윤우','준서','유진'];
-  const PCOL={'세찬':'mad','윤우':'svq','준서':'bcn','유진':'grn'};
+  const NAMES=['세찬','윤우','유진'];
+  const PCOL={'세찬':'mad','윤우':'svq','유진':'grn'};
   const DOW={13:'수',14:'목',15:'금',16:'토',17:'일',18:'월',19:'화',20:'수',21:'목',22:'금',23:'토',24:'일',25:'월',26:'화'};
   const cityOf=d=>d<=16?'mad':d<=19?'svq':d<=24?'bcn':'mad';
   const pStyle=n=>{const k=PCOL[n];return k?`--p:var(--${k});--p-soft:var(--${k}-soft)`:'--p:var(--ink-3);--p-soft:var(--line)'};
