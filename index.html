@@ -88,6 +88,25 @@ h1,h2,h3{text-wrap:balance;margin:0}
 .legend small{color:var(--ink-3);font-family:var(--mono);font-size:11px}
 @media (max-width:560px){.legend{grid-template-columns:repeat(2,1fr)}.ticks span:nth-child(even){color:transparent}}
 
+/* BUDGET */
+.budget{display:grid;gap:14px;background:var(--surface);border-radius:14px;padding:20px;box-shadow:var(--shadow)}
+.budget h2{font-size:15px;font-weight:600}
+.b-total{display:flex;flex-wrap:wrap;gap:10px 32px;align-items:baseline}
+.b-total div{display:grid;gap:2px}
+.b-total b{font-family:var(--display);font-weight:700;font-size:26px;font-variant-numeric:tabular-nums}
+.b-total small{font-size:12px;color:var(--ink-3)}
+.b-bar{display:flex;gap:3px;height:10px}
+.b-bar i{border-radius:3px;background:var(--c)}
+.b-list{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.b-list div{display:grid;gap:1px;font-size:13px}
+.b-list b{font-weight:600;display:flex;align-items:center;gap:6px}
+.b-list b::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--c)}
+.b-list small{color:var(--ink-3);font-family:var(--mono);font-size:11px}
+.b-note{margin:0;font-size:12px;color:var(--ink-3)}
+@media (max-width:560px){.b-list{grid-template-columns:repeat(2,1fr)}}
+.cost{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline;font-size:12.5px;color:var(--ink-3);border-top:1px dashed var(--line);padding-top:8px}
+.cost b{font-family:var(--mono);font-size:14px;font-weight:600;color:var(--ink)}
+
 /* FILTER */
 .filter{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);padding-block:12px;margin-top:28px;display:flex;gap:8px;overflow-x:auto;border-bottom:1px solid var(--line)}
 .filter button{font:inherit;font-size:13px;font-weight:600;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);padding:7px 14px;border-radius:999px;cursor:pointer;white-space:nowrap}
@@ -270,6 +289,8 @@ img{max-width:100%}
         <div style="--c:var(--mad)"><b>마드리드</b><small>1박 · 1/25–26</small></div>
       </div>
     </section>
+
+    <section class="budget" id="budget" aria-label="예상 예산"></section>
   </header>
 
   <nav class="filter" aria-label="도시 필터">
@@ -362,87 +383,91 @@ const CITIES={
 const won=n=>'₩'+n.toLocaleString('ko-KR');
 const stayHTML=s=>`<div class="stay"><div class="stay-main"><b><a href="${s.url}" target="_blank" rel="noopener">${esc(s.name)}</a><span class="chip opt">임시</span></b><small>${esc(s.desc)}</small></div>
   <div class="stay-price"><b>${won(s.price)}</b><small>3명 · ${s.nights}박 합계 · 10/7 Airbnb 표시액</small></div></div>`;
+// 예산: 1인 기준. 각 날의 cost는 [교통, 입장·공연, 식비] 유로 추정치(2026-10 웹 시세, 선택 일정 제외)
+const EUR=1600;          // €1 = ₩1,600 가정
+const FLIGHT=1737700;    // 인천↔마드리드 대한항공 직항 왕복 최저 표시가
+const krw=n=>won(Math.round(n/100)*100);
 // [time, text, chip]
 const PLAN=[
  {sec:'mad1',ticket:{kind:'Flight · 항공',from:['ICN','인천'],to:['MAD','마드리드 바라하스'],info:'직항 기준 약 14–15시간. 공항 → 시내는 공항버스(Exprés Aeropuerto, 약 €5) 또는 지하철 8호선',stub:['1/13','수요일']}},
- {d:13,dow:'수',sec:'mad1',title:'도착, 그리고 첫 추로스',plan:[
+ {d:13,dow:'수',sec:'mad1',cost:[5,0,25],title:'도착, 그리고 첫 추로스',plan:[
    ['오후','마드리드 도착, 숙소 체크인'],
    ['17:00','솔 광장 → 그란비아 산책, 유심/이심 개통 확인'],
    ['21:00','첫 저녁은 가볍게 타파스 바'],
    ['23:00','산 히네스(San Ginés)에서 초코라테 콘 추로스']],
    note:'장거리 비행 후라 첫날은 무리하지 않기.'},
- {d:14,dow:'목',sec:'mad1',img:'palace',title:'왕궁과 구시가지',plan:[
+ {d:14,dow:'목',sec:'mad1',cost:[2.5,29,45],img:'palace',title:'왕궁과 구시가지',plan:[
    ['10:00','마드리드 왕궁 → 알무데나 대성당'],
    ['12:30','마요르 광장, 산 미겔 시장에서 간식'],
    ['14:30','점심: 보카디요 데 칼라마레스(오징어 튀김 샌드위치)'],
    ['18:00','프라도 미술관','book'],
    ['21:30','라 라티나 카바 바하(Cava Baja) 거리 타파스 투어']]},
- {d:15,dow:'금',sec:'mad1',title:'레티로 공원 & 베르나베우',plan:[
+ {d:15,dow:'금',sec:'mad1',cost:[2.5,41,45],title:'레티로 공원 & 베르나베우',plan:[
    ['10:00','레티로 공원, 크리스탈 궁전'],
    ['12:00','레이나 소피아 미술관 (게르니카)','opt'],
    ['15:30','산티아고 베르나베우 스타디움 투어','book'],
    ['19:00','시르쿨로 데 베야스 아르테스 루프탑에서 야경'],
    ['22:00','말라사냐 바 거리에서 불금']]},
- {d:16,dow:'토',sec:'mad1',img:'toledo',title:'근교 당일치기: 톨레도 or 세고비아',plan:[
+ {d:16,dow:'토',sec:'mad1',cost:[25,0,45],img:'toledo',title:'근교 당일치기: 톨레도 or 세고비아',plan:[
    ['09:00','톨레도: 아토차역에서 고속열차 약 33분 / 세고비아: 차마르틴역에서 약 30분'],
    ['13:30','세고비아라면 수도교 보고 새끼돼지 통구이(코치니요)'],
    ['18:00','마드리드 복귀'],
    ['밤','레알 · 아틀레티코 홈경기 있으면 직관','foot']],
    note:'주말 경기 일정은 보통 2–3주 전에 나옴. 경기 있으면 당일치기를 금요일로 바꾸기.'},
  {sec:'svq',ticket:{kind:'Train · 고속열차',from:['MAD','Puerta de Atocha'],to:['SVQ','Santa Justa'],info:'AVE · iryo · Ouigo 약 2시간 30분. 오전 엘 라스트로 벼룩시장 보고 오후 기차 추천',stub:['1/17','일요일']}},
- {d:17,dow:'일',sec:'svq',title:'벼룩시장 들렀다가 남쪽으로',plan:[
+ {d:17,dow:'일',sec:'svq',cost:[47.5,0,45],title:'벼룩시장 들렀다가 남쪽으로',plan:[
    ['10:00','마드리드 엘 라스트로 일요 벼룩시장'],
    ['13:00','체크아웃, 아토차역으로'],
    ['17:00','세비야 도착, 숙소 체크인'],
    ['19:00','산타 크루스 골목 산책, 저녁은 타파스']]},
- {d:18,dow:'월',sec:'svq',img:'alcazar',title:'알카사르와 대성당',plan:[
+ {d:18,dow:'월',sec:'svq',cost:[0,70.5,45],img:'alcazar',title:'알카사르와 대성당',plan:[
    ['09:30','세비야 알카사르 (왕좌의 게임 도른 촬영지)','book'],
    ['12:30','세비야 대성당 + 히랄다 탑','book'],
    ['14:30','점심: 살모레호, 이베리코 하몽'],
    ['17:30','메트로폴 파라솔(라스 세타스) 전망대에서 일몰'],
    ['20:00','플라멩코 공연','book']]},
- {d:19,dow:'화',sec:'svq',img:'plaza',title:'스페인 광장, 그리고 트리아나',plan:[
+ {d:19,dow:'화',sec:'svq',cost:[0,0,45],img:'plaza',title:'스페인 광장, 그리고 트리아나',plan:[
    ['10:00','스페인 광장 → 마리아 루이사 공원'],
    ['13:00','황금의 탑, 과달키비르 강변'],
    ['15:00','트리아나 다리 건너 트리아나 시장, 도자기 거리'],
    ['21:00','트리아나 강변 바에서 마지막 밤']],
    note:'대안: 코르도바 당일치기 (고속열차 약 45분, 메스키타).'},
  {sec:'bcn',ticket:{kind:'Flight · 항공',from:['SVQ','세비야'],to:['BCN','엘 프라트'],info:'부엘링 등 약 1시간 45분. 저가항공은 위탁수하물 별도인 경우 많음. 공항 → 시내 에어로버스 약 35분',stub:['1/20','수요일']}},
- {d:20,dow:'수',sec:'bcn',title:'바르셀로나 입성',plan:[
+ {d:20,dow:'수',sec:'bcn',cost:[67.25,0,45],title:'바르셀로나 입성',plan:[
    ['오전','세비야 → 바르셀로나 이동'],
    ['15:00','숙소 체크인'],
    ['16:30','고딕 지구 → 바르셀로네타 해변'],
    ['21:00','해산물 빠에야']]},
- {d:21,dow:'목',sec:'bcn',img:'sagrada',title:'가우디 데이',plan:[
+ {d:21,dow:'목',sec:'bcn',cost:[2.6,36,45],img:'sagrada',title:'가우디 데이',plan:[
    ['09:00','사그라다 파밀리아 (탑 입장 포함 추천)','book'],
    ['12:00','산트 파우 병원 (걸어서 10분)','opt'],
    ['14:00','라 보케리아 시장에서 점심'],
    ['16:30','그라시아 거리: 카사 바트요, 카사 밀라 외관'],
    ['21:00','엘 보른 지구 저녁 & 바']]},
- {d:22,dow:'금',sec:'bcn',img:'guell',title:'구엘 공원과 도시 전망',plan:[
+ {d:22,dow:'금',sec:'bcn',cost:[2.6,18,45],img:'guell',title:'구엘 공원과 도시 전망',plan:[
    ['09:30','구엘 공원','book'],
    ['12:00','그라시아 동네 골목 구경, 점심'],
    ['16:30','벙커 델 카르멜에서 일몰 (바르셀로나 최고 뷰)'],
    ['21:30','불금: 엘 라발 or 포블레노우']]},
- {d:23,dow:'토',sec:'bcn',img:'montserrat',title:'몬세라트 당일치기',plan:[
+ {d:23,dow:'토',sec:'bcn',cost:[22,0,45],img:'montserrat',title:'몬세라트 당일치기',plan:[
    ['08:30','에스파냐 광장역 R5 열차 → 산악열차 or 케이블카'],
    ['11:00','몬세라트 수도원, 검은 성모상'],
    ['13:00','트레킹 코스 (산 호안 전망대)','opt'],
    ['18:00','시내 복귀'],
    ['밤','바르셀로나 홈경기 있으면 스포티파이 캄 노우 직관','foot']]},
- {d:24,dow:'일',sec:'bcn',title:'몬주익 & 자유 일정',plan:[
+ {d:24,dow:'일',sec:'bcn',cost:[2.6,0,45],title:'몬주익 & 자유 일정',plan:[
    ['10:00','캄 노우 투어 (경기 못 봤다면)','opt'],
    ['13:00','몬주익 언덕: 몬주익 성, 올림픽 경기장'],
    ['16:00','MNAC 앞 계단에서 도시 전망'],
    ['21:00','바르셀로나 마지막 밤']],
    note:'일요일은 대부분 상점 휴무. 쇼핑은 평일에.'},
  {sec:'mad2',ticket:{kind:'Train · 고속열차',from:['BCN','Sants'],to:['MAD','Atocha'],info:'AVE · iryo · Ouigo 약 2시간 30분–3시간. 짐 많으면 오전 기차 타고 오후에 쇼핑',stub:['1/25','월요일']}},
- {d:25,dow:'월',sec:'mad2',title:'마지막 밤은 다시 마드리드',plan:[
+ {d:25,dow:'월',sec:'mad2',cost:[42.5,0,55],title:'마지막 밤은 다시 마드리드',plan:[
    ['13:00','마드리드 도착, 숙소 체크인'],
    ['15:00','레바하스 세일 쇼핑: 엘 코르테 잉글레스, 그란비아'],
    ['21:00','마지막 만찬: 보틴(세계에서 가장 오래된 식당) 코치니요','book'],
    ['23:00','못 다 한 추로스 한 번 더']]},
- {d:26,dow:'화',sec:'mad2',title:'Adiós, España',plan:[
+ {d:26,dow:'화',sec:'mad2',cost:[4.5,0,15],title:'Adiós, España',plan:[
    ['오전','체크아웃, 바라하스 공항으로 (출발 3시간 전 도착)'],
    ['공항','택스 리펀드 먼저 처리하고 짐 부치기']]},
  {sec:'end',ticket:{kind:'Flight · 항공',from:['MAD','마드리드'],to:['ICN','인천'],info:'한국 도착은 다음날(1/27). 편명·출발시간 확정되면 여기 적어두기',stub:['1/26','화요일']}}
@@ -466,6 +491,7 @@ const escA=s=>esc(s).replace(/"/g,'&quot;');
 function render(){
   const root=document.getElementById('timeline');
   let html='',cur=null,open=false;
+  const sum={stay:0,move:0,ticket:0,food:0};
   const close=()=>{if(open){html+='</div></section>';open=false;}};
   for(const p of PLAN){
     const key=p.sec==='end'?'mad':CITIES[p.sec].key, col=C[key];
@@ -487,15 +513,27 @@ function render(){
         <div class="facts">${c.facts.map(f=>`<span>${esc(f[0])} <b>${esc(f[1])}</b></span>`).join('')}</div></div>${c.stay?stayHTML(c.stay):''}<div class="days">`;
       open=true;
     }
-    const n=p.d-12;
+    const n=p.d-12,st=CITIES[p.sec].stay;
+    const c={stay:p.d<26?st.price/st.nights/3:0,move:p.cost[0]*EUR,ticket:p.cost[1]*EUR,food:p.cost[2]*EUR};
+    for(const k in c)sum[k]+=c[k];
+    const costHTML=`<div class="cost"><b>1인 ${krw(c.stay+c.move+c.ticket+c.food)}</b>${[['숙박','stay'],['교통','move'],['입장·공연','ticket'],['식비','food']].filter(([,k])=>c[k]).map(([l,k])=>`<span>${l} ${krw(c[k])}</span>`).join('')}</div>`;
     html+=`<article class="day" id="d${p.d}" data-date="2027-01-${p.d}">
       <div class="date"><b>${p.d}</b><span>JAN · ${p.dow}</span><em>Day ${n}</em></div>
       <div class="body"><h3>${esc(p.title)}</h3>${p.img?shot(IMG[p.img]):''}<ul class="plan">${p.plan.map(([t,x,c])=>`<li><button type="button" class="item" data-target="${escA(t+' '+x)}"><time>${esc(t)}</time><span>${esc(x)}${c?`<span class="chip ${CHIP[c][1]}">${CHIP[c][0]}</span>`:''}</span><span class="aux"><span class="n" hidden></span><span class="add">＋ 의견</span></span></button></li>`).join('')}</ul>
       ${p.note?`<div class="note">${esc(p.note)}</div>`:''}
+      ${costHTML}
       <div class="thread" data-day="${p.d}"><ul class="t-list"></ul><button type="button" class="ghost" data-target="">＋ 이 날 전체에 의견</button><div class="slot"></div></div></div></article>`;
   }
   close();
   root.innerHTML=html;
+
+  const parts=[['국제선 항공','var(--ink-3)',FLIGHT],['숙박','var(--mad)',sum.stay],['현지 교통','var(--svq)',sum.move],['입장·공연','var(--bcn)',sum.ticket],['식비','var(--grn)',sum.food]];
+  const total=parts.reduce((a,x)=>a+x[2],0);
+  document.getElementById('budget').innerHTML=`<h2>전체 예상 예산</h2>
+    <div class="b-total"><div><b>${krw(total)}</b><small>1인 · 국제선 포함</small></div><div><b>${krw(total-FLIGHT)}</b><small>1인 · 현지 경비만</small></div><div><b>${krw(total*3)}</b><small>3명 합계</small></div></div>
+    <div class="b-bar" aria-hidden="true">${parts.map(([,col,v])=>`<i style="--c:${col};flex:${v}"></i>`).join('')}</div>
+    <div class="b-list">${parts.map(([l,col,v])=>`<div style="--c:${col}"><b>${l}</b><small>${krw(v)}</small></div>`).join('')}</div>
+    <p class="b-note">숙박은 10/7 Airbnb 표시액, 나머지는 2026년 10월 웹 시세로 잡은 추정치예요. €1=₩1,600, 항공은 대한항공 직항 최저 표시가 기준(경유편은 더 쌀 수 있음). 선택 일정·쇼핑·바르셀로나 관광세는 빠져 있어요.</p>`;
 }
 render();
 
