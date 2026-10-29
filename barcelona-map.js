@@ -33,8 +33,8 @@
   const cityPoints=routes.flatMap(r=>r.stops.map(s=>s.slice(2)));
   const timeFor=(route,stop)=>PLAN.find(p=>p.d===route.day).plan[stop[0]][0];
   const googleURL=stop=>'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(stop[2]+','+stop[3]);
-  function cityView(){map.fitBounds(cityPoints,{padding:[28,28],maxZoom:14,animate:false});}
-  function dayView(){map.fitBounds(current.stops.map(s=>s.slice(2)),{padding:[35,35],maxZoom:15,animate:false});}
+  function cityView(){if(host.clientWidth)map.fitBounds(cityPoints,{padding:[28,28],maxZoom:14,animate:false});}
+  function dayView(){if(host.clientWidth)map.fitBounds(current.stops.map(s=>s.slice(2)),{padding:[35,35],maxZoom:15,animate:false});}
   function show(route,fit=true){
     current=route;
     dates.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',Number(b.dataset.day)===route.day));
