@@ -198,7 +198,6 @@ footer{margin-top:56px;font-size:12px;color:var(--ink-3);text-align:center;font-
 :root{--grn:#2F8A57;--grn-soft:#DFF1E6}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--grn:#5CC08A;--grn-soft:#15301F}}
 :root[data-theme="dark"]{--grn:#5CC08A;--grn-soft:#15301F}
-.tip{margin:16px 0 0;font-size:13px;color:var(--ink-3)}
 .plan li{display:block}
 .item{display:grid;grid-template-columns:52px 1fr auto;gap:10px;align-items:start;width:calc(100% + 16px);margin-inline:-8px;padding:4px 8px;font:inherit;font-size:14.5px;line-height:1.6;color:var(--ink-2);text-align:left;background:none;border:0;border-radius:6px;cursor:pointer}
 .item:hover,.item.on{background:var(--soft)}
@@ -248,7 +247,6 @@ footer{margin-top:56px;font-size:12px;color:var(--ink-3);text-align:center;font-
 .status.err{color:var(--mad)}
 .comments{margin-top:72px;display:grid;gap:16px}
 .comments h2{font-family:var(--display);font-weight:700;font-size:28px;letter-spacing:-.01em}
-.comments>p{margin:0;color:var(--ink-2);font-size:14px}
 .comments .box{background:var(--surface);border-radius:12px;padding:20px;box-shadow:var(--shadow);display:grid;gap:14px}
 .c-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
 .c-head h3{font-size:15px;font-weight:700}
@@ -306,7 +304,6 @@ img{max-width:100%}
     <button type="button" id="f-move" data-f="move" aria-pressed="false">이동만 보기</button>
   </nav>
 
-  <p class="tip">일정 한 줄을 누르면 그 항목에 바로 의견을 달 수 있어요.</p>
   <main id="timeline"></main>
 
   <section class="info">
@@ -364,7 +361,6 @@ img{max-width:100%}
 
   <section class="comments" id="comments">
     <h2>리뷰 &amp; 건의사항</h2>
-    <p>일정 전체에 대한 얘기는 여기에 남겨주세요.</p>
     <div class="box">
       <div class="c-head">
         <h3 id="c-title">의견</h3>
