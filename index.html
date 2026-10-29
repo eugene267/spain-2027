@@ -104,7 +104,6 @@ h1,h2,h3{text-wrap:balance;margin:0}
 .b-list b{font-weight:600;display:flex;align-items:center;gap:6px}
 .b-list b::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--c)}
 .b-list small{color:var(--ink-3);font-family:var(--mono);font-size:11px}
-.b-note{margin:0;font-size:12px;color:var(--ink-3)}
 @media (max-width:560px){.b-list{grid-template-columns:repeat(2,1fr)}}
 .cost{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline;font-size:12.5px;color:var(--ink-3);border-top:1px dashed var(--line);padding-top:8px}
 .cost b{font-family:var(--mono);font-size:14px;font-weight:600;color:var(--ink)}
@@ -155,9 +154,6 @@ h1,h2,h3{text-wrap:balance;margin:0}
 .note{font-size:13px;color:var(--ink-3);border-left:2px solid var(--line);padding-left:10px}
 .shot{position:relative;margin:2px 0 4px;border-radius:10px;overflow:hidden;max-width:100%;background:var(--soft)}
 .shot img{display:block;width:100%;height:auto}
-.shot figcaption{position:absolute;right:0;bottom:0;left:0;padding:18px 10px 6px;text-align:right;background:linear-gradient(transparent,rgba(0,0,0,.45))}
-.shot figcaption a{font-size:10.5px;color:rgba(255,255,255,.88);text-decoration:none}
-.shot figcaption a:hover{text-decoration:underline}
 
 /* TICKET */
 .ticket{margin-top:28px;display:grid;grid-template-columns:1fr auto;background:var(--surface);border-radius:12px;box-shadow:var(--shadow);position:relative;overflow:hidden}
@@ -320,14 +316,14 @@ img{max-width:100%}
         <h3>미리 예약해야 하는 것</h3>
         <ul>
           <li><span class="mono">숙소</span><span>리스본만 예약 요청 후 호스트 수락 대기. 나머지 숙소는 예약 완료</span></li>
-          <li><span class="mono">1/15</span><span>사그라다 파밀리아 (보통 몇 주 전 매진)</span></li>
+          <li><span class="mono">1/15</span><span>사그라다 파밀리아 (몇 주 전 매진)</span></li>
           <li><span class="mono">1/16</span><span>구엘 공원 입장 시간 지정권</span></li>
-          <li><span class="mono">1/17</span><span>바르셀로나 → 마드리드 기차 (AVE · iryo · Ouigo 비교)</span></li>
+          <li><span class="mono">1/17</span><span>바르셀로나 → 마드리드 기차</span></li>
           <li><span class="mono">1/18</span><span>마드리드 왕궁 · 프라도 미술관</span></li>
           <li><span class="mono">1/20</span><span>마드리드 → 세비야 기차, 세비야 플라멩코 공연</span></li>
-          <li><span class="mono">1/21</span><span>세비야 알카사르 · 대성당, 세비야 → 포르투 야간버스 (1월 표가 열리면 직행 여부 확인)</span></li>
+          <li><span class="mono">1/21</span><span>세비야 알카사르 · 대성당, 세비야 → 포르투 야간버스</span></li>
           <li><span class="mono">1/23</span><span>포르투 포트와인 셀러 투어</span></li>
-          <li><span class="mono">1/24</span><span>포르투 → 리스본 기차 (CP Alfa Pendular · Intercidades)</span></li>
+          <li><span class="mono">1/24</span><span>포르투 → 리스본 기차</span></li>
           <li><span class="mono">1/25</span><span>리스본 파두 공연 식당</span></li>
         </ul>
       </div>
@@ -368,7 +364,7 @@ img{max-width:100%}
 
   <section class="comments" id="comments">
     <h2>리뷰 &amp; 건의사항</h2>
-    <p>일정 한 줄을 누르면 그 항목에 바로 의견을 달 수 있어요. 일정 전체에 대한 얘기는 여기에 남겨주세요. 위에 달린 의견도 전부 여기 모여요.</p>
+    <p>일정 전체에 대한 얘기는 여기에 남겨주세요.</p>
     <div class="box">
       <div class="c-head">
         <h3 id="c-title">의견</h3>
@@ -379,65 +375,63 @@ img{max-width:100%}
     </div>
   </section>
 
-  <footer>¡Buen viaje, chicos! · 항공권과 숙소 확정(리스본은 호스트 수락 대기). 세부 일정은 초안</footer>
+  <footer>¡Buen viaje, chicos!</footer>
 </div>
 
 <script>
 const C={bcn:{c:'var(--bcn)',s:'var(--bcn-soft)'},mad:{c:'var(--mad)',s:'var(--mad-soft)'},svq:{c:'var(--svq)',s:'var(--svq-soft)'},opo:{c:'var(--opo)',s:'var(--opo-soft)'},lis:{c:'var(--lis)',s:'var(--lis-soft)'},pek:{c:'var(--pek)',s:'var(--pek-soft)'}};
 // 숙소 금액은 Airbnb 3명 합계 표시액(10/27–28), tax는 관광세 추정액. in–out 사이의 밤에 1인 몫을 나눠 넣음
 const CITIES={
-  pek:{key:'pek',name:'Beijing',ko:'베이징 환승 · 기내 1박',facts:[['환승','11시간 20분'],['공항','서우두 PEK T3']]},
-  bcn1:{key:'bcn',name:'Barcelona',ko:'바르셀로나 · 3박',facts:[['기온','5–14°'],['일몰','약 17:40']],
+  pek:{key:'pek',name:'Beijing',ko:'기내 1박',facts:[['환승','11시간 20분']]},
+  bcn1:{key:'bcn',name:'Barcelona',ko:'3박',facts:[['기온','5–14°'],['일몰','약 17:40']],
     stay:{name:'커플을 위한 이상적인 객실',url:'https://www.airbnb.co.kr/rooms/24392074',desc:'바달로나 · 카탈루냐 광장까지 약 8.5km',price:448627,tax:144000,in:14,out:17,booked:true}},
-  mad:{key:'mad',name:'Madrid',ko:'마드리드 · 3박',facts:[['기온','3–11°'],['일몰','약 18:10']],
+  mad:{key:'mad',name:'Madrid',ko:'3박',facts:[['기온','3–11°'],['일몰','약 18:10']],
     stay:{name:'알리시아의 아파트',desc:'아토차역 약 1.3km',price:423455,tax:0,in:17,out:20,booked:true}},
-  svq:{key:'svq',name:'Sevilla',ko:'세비야 · 1박',facts:[['기온','6–16°'],['일몰','약 18:15']],
+  svq:{key:'svq',name:'Sevilla',ko:'1박',facts:[['기온','6–16°'],['일몰','약 18:15']],
     stay:{name:'레몬 트리 코너',url:'https://www.airbnb.co.kr/rooms/53877073',desc:'산타 후스타역 약 0.5km',price:155465,tax:0,in:20,out:21,booked:true}},
-  opo:{key:'opo',name:'Porto',ko:'포르투 · 2박',facts:[['기온','5–14°'],['일몰','약 17:40']],
+  opo:{key:'opo',name:'Porto',ko:'2박',facts:[['기온','5–14°'],['일몰','약 17:40']],
     stay:{name:'아스가르드 아파트먼트 101',desc:'상벤투역 약 0.3km',price:205805,tax:28800,in:22,out:24,booked:true}},
-  lis:{key:'lis',name:'Lisboa',ko:'리스본 · 2박',facts:[['기온','8–15°'],['일몰','약 17:45']],
+  lis:{key:'lis',name:'Lisboa',ko:'2박',facts:[['기온','8–15°'],['일몰','약 17:45']],
     stay:{name:'야외 공간을 갖춘 편안함과 평온함',desc:'아로이우스 · 난방 없음 표기라 호스트에게 히터 확인',price:180635,tax:38400,in:24,out:26,req:true}},
-  bcn2:{key:'bcn',name:'Barcelona',ko:'다시 바르셀로나 · 1박',facts:[['공항','엘 프라트 BCN T1']],
+  bcn2:{key:'bcn',name:'Barcelona',ko:'1박',facts:[],
     stay:{name:'Sercotel Barcelona El Prat',url:'https://www.airbnb.co.kr/rooms/1644124202990432706',desc:'공항까지 약 4km, 택시',price:221468,tax:14400,in:26,out:27,booked:true}}
 };
 const won=n=>'₩'+n.toLocaleString('ko-KR');
 const stayHTML=s=>`<div class="stay"><div class="stay-main"><b>${s.url?`<a href="${s.url}" target="_blank" rel="noopener">${esc(s.name)}</a>`:esc(s.name)}<span class="chip ${s.booked?'done':'opt'}">${s.booked?'예약 완료':s.req?'수락 대기':'예약 전'}</span></b><small>${esc(s.desc)}</small></div>
-  <div class="stay-price"><b>${won(s.price)}</b><small>3명 · ${s.out-s.in}박 합계${s.tax?` · 관광세 약 ${won(s.tax)} 별도`:''}</small></div></div>`;
+  <div class="stay-price"><b>${won(s.price)}</b><small>3명 합계${s.tax?` · 관광세 약 ${won(s.tax)} 별도`:''}</small></div></div>`;
 // 예산: 1인 기준. 각 날의 cost는 [교통, 입장·공연, 식비] 유로 추정치(2026-10 웹 시세, 선택 일정 제외)
 const EUR=1600;          // €1 = ₩1,600 가정
 const FLIGHT=775500+129500; // 에어차이나 왕복 + TAP 리스본→바르셀로나, 결제 완료 1인 금액
 const krw=n=>won(Math.round(n/100)*100);
 // [time, text, chip]
 const PLAN=[
- {sec:'pek',ticket:{kind:'Flight · 에어차이나',from:['GMP','김포'],to:['PEK','베이징 서우두 T3'],info:'14:25 출발 → 15:45 도착. 위탁 1개 23kg, 기내 1개 5kg. 짐은 바르셀로나까지 연결',stub:['1/13','수요일']}},
+ {sec:'pek',ticket:{kind:'Flight',from:['GMP','김포'],to:['PEK','베이징 서우두 T3'],info:'14:25 → 15:45 · 위탁 23kg, 기내 5kg · 짐은 바르셀로나까지 연결',stub:['1/13','수요일']}},
  {d:13,dow:'수',sec:'pek',cost:[0,0,15],title:'베이징에서 11시간 환승',plan:[
    ['15:45','베이징 서우두 T3 도착, 환승 수속'],
-   ['저녁','PP카드 있으면 T3E BGS Premier Lounge (최대 3시간)','opt'],
+   ['저녁','PP카드 있으면 T3E BGS Premier Lounge','opt'],
    ['밤','게이트 근처에서 쉬면서 대기']],
-   note:'중국 30일 무비자는 2026-12-31까지로 발표돼 있음. 공항 밖으로 나갈 생각이면 출발 전에 무비자·240시간 환승 조건을 다시 확인.'},
- {sec:'bcn1',ticket:{kind:'Flight · 에어차이나',from:['PEK','베이징'],to:['BCN','엘 프라트 T1'],info:'1/14 03:05 출발 → 08:05 도착. 공항 → 시내는 에어로버스 약 35분',stub:['1/14','목요일']}},
+   note:'공항 밖으로 나가려면 출발 전에 무비자·환승 조건 확인.'},
+ {sec:'bcn1',ticket:{kind:'Flight',from:['PEK','베이징'],to:['BCN','엘 프라트 T1'],info:'03:05 → 08:05 · 시내까지 에어로버스 약 35분',stub:['1/14','목요일']}},
  {d:14,dow:'목',sec:'bcn1',cost:[10,0,45],title:'아침 도착, 짐 맡기고 고딕 지구',plan:[
    ['09:30','시내 짐 보관 서비스에 캐리어 맡기기'],
    ['11:00','고딕 지구 → 엘 보른 골목 산책'],
    ['14:00','라 보케리아 시장에서 점심'],
-   ['17:00','짐 찾아서 바달로나 숙소 체크인 (15시부터)'],
-   ['21:00','첫 저녁은 가볍게 타파스']],
-   note:'숙소가 시 외곽이라 체크인 전에 짐을 들고 왕복하지 않도록 시내에 맡기기. 밤샘 비행 후라 무리하지 않기.'},
+   ['17:00','짐 찾아서 바달로나 숙소 체크인'],
+   ['21:00','첫 저녁은 가볍게 타파스']]},
  {d:15,dow:'금',sec:'bcn1',cost:[5,36,45],img:'sagrada',title:'가우디 데이',plan:[
-   ['09:00','사그라다 파밀리아 (탑 입장 포함 추천)','book'],
-   ['12:00','산트 파우 병원 (걸어서 10분)','opt'],
+   ['09:00','사그라다 파밀리아','book'],
+   ['12:00','산트 파우 병원','opt'],
    ['16:00','그라시아 거리: 카사 바트요, 카사 밀라 외관'],
    ['21:00','해산물 빠에야']]},
  {d:16,dow:'토',sec:'bcn1',cost:[5,18,45],img:'guell',title:'구엘 공원과 도시 전망',plan:[
    ['09:30','구엘 공원','book'],
    ['12:00','그라시아 동네 골목 구경, 점심'],
    ['16:30','벙커 델 카르멜에서 일몰'],
-   ['밤','바르셀로나 홈경기 있으면 직관','foot']],
-   note:'주말 경기 일정은 보통 2–3주 전에 나옴.'},
- {sec:'mad',ticket:{kind:'Train · 고속열차',from:['BCN','Sants'],to:['MAD','Atocha'],info:'AVE · iryo · Ouigo 약 2시간 30분–3시간. 숙소에서 산츠역까지는 택시',stub:['1/17','일요일']}},
+   ['밤','바르셀로나 홈경기 있으면 직관','foot']]},
+ {sec:'mad',ticket:{kind:'Train',from:['BCN','Sants'],to:['MAD','Atocha'],info:'약 2시간 30분–3시간',stub:['1/17','일요일']}},
  {d:17,dow:'일',sec:'mad',cost:[55,0,45],title:'마드리드로, 첫 추로스',plan:[
    ['10:00','체크아웃, 택시로 산츠역'],
-   ['14:00','마드리드 도착, 숙소 체크인 (15시부터)'],
+   ['14:00','마드리드 도착, 숙소 체크인'],
    ['17:00','솔 광장 → 그란비아 산책'],
    ['21:00','산 히네스(San Ginés)에서 초코라테 콘 추로스']]},
  {d:18,dow:'월',sec:'mad',cost:[3,29,45],img:'palace',title:'왕궁과 구시가지, 프라도',plan:[
@@ -451,8 +445,8 @@ const PLAN=[
    ['15:00','산티아고 베르나베우 스타디움 투어','book'],
    ['19:00','시르쿨로 데 베야스 아르테스 루프탑에서 야경'],
    ['22:00','말라사냐 바 거리']],
-   note:'대안: 톨레도 당일치기 (아토차역에서 고속열차 약 33분). 레이나 소피아는 화요일 휴관.'},
- {sec:'svq',ticket:{kind:'Train · 고속열차',from:['MAD','Puerta de Atocha'],to:['SVQ','Santa Justa'],info:'AVE · iryo · Ouigo 약 2시간 30분. 오전 기차를 타야 세비야 오후를 쓸 수 있음',stub:['1/20','수요일']}},
+   note:'대안: 톨레도 당일치기(고속열차 약 33분). 레이나 소피아는 화요일 휴관.'},
+ {sec:'svq',ticket:{kind:'Train',from:['MAD','Puerta de Atocha'],to:['SVQ','Santa Justa'],info:'약 2시간 30분 · 오전 기차',stub:['1/20','수요일']}},
  {d:20,dow:'수',sec:'svq',cost:[47.5,25,45],img:'plaza',title:'세비야 반나절',plan:[
    ['09:00','체크아웃, 아토차역으로'],
    ['12:30','세비야 도착, 숙소에 짐 맡기기'],
@@ -466,8 +460,8 @@ const PLAN=[
    ['15:00','트리아나 다리 건너 트리아나 시장, 도자기 거리'],
    ['17:30','메트로폴 파라솔(라스 세타스) 전망대에서 일몰','opt'],
    ['밤','짐 찾아서 야간버스 탑승']],
-   note:'버스 시간과 출발지(Plaza de Armas 또는 공항)는 1월 표가 열려야 확정. 10월 기준 FlixBus는 환승 1회, 11–14시간.'},
- {sec:'opo',ticket:{kind:'Bus · 야간버스',from:['SVQ','세비야'],to:['OPO','포르투'],info:'FlixBus 등. 1월 시간표는 아직 미정',stub:['1/21','목요일']}},
+   note:'버스 시간·출발지는 1월 표가 열려야 확정.'},
+ {sec:'opo',ticket:{kind:'Bus',from:['SVQ','세비야'],to:['OPO','포르투'],info:'FlixBus 등 · 11–14시간',stub:['1/21','목요일']}},
  {d:22,dow:'금',sec:'opo',cost:[5,10,40],title:'새벽 포르투, 리베이라 강변',plan:[
    ['아침','포르투 도착, 상벤투역 락커나 짐 보관 앱에 캐리어 맡기기'],
    ['09:00','상벤투역 아줄레주 → 카페에서 아침'],
@@ -475,27 +469,27 @@ const PLAN=[
    ['14:00','리베이라 강변, 동 루이스 1세 다리 건너기'],
    ['15:00','숙소 체크인 후 쉬기'],
    ['20:00','저녁: 프란세지냐']],
-   note:'호스트에게 이른 체크인부터 물어보기. 숙소 짐 보관 표기가 없음.'},
+   note:'호스트에게 이른 체크인 물어보기.'},
  {d:23,dow:'토',sec:'opo',cost:[3,20,40],title:'가이아 와이너리와 일몰',plan:[
    ['10:00','클레리구스 탑 → 볼량 시장'],
    ['14:00','빌라 노바 드 가이아 포트와인 셀러 투어·시음','book'],
    ['17:00','모루 정원(Jardim do Morro)에서 일몰'],
    ['20:00','리베이라 강변 저녁']]},
- {sec:'lis',ticket:{kind:'Train · CP',from:['OPO','Campanhã'],to:['LIS','Santa Apolónia · Oriente'],info:'Alfa Pendular 약 2시간 50분, Intercidades 약 3시간 10분. 오전 일찍 타기',stub:['1/24','일요일']}},
+ {sec:'lis',ticket:{kind:'Train',from:['OPO','Campanhã'],to:['LIS','Santa Apolónia · Oriente'],info:'약 3시간 · 오전 일찍',stub:['1/24','일요일']}},
  {d:24,dow:'일',sec:'lis',cost:[38,18,40],title:'리스본 도착, 벨렝',plan:[
    ['08:00','체크아웃, 캄파냥역에서 기차'],
    ['11:00','리스본 도착, 역 락커에 짐 맡기기'],
    ['12:30','벨렝: 제로니무스 수도원','book'],
    ['15:00','파스테이스 드 벨렝에서 에그타르트'],
    ['17:00','짐 찾아서 숙소 체크인']],
-   note:'제로니무스 수도원과 벨렝 탑은 월요일 휴관이라 일요일에 보기.'},
+   note:'제로니무스 수도원·벨렝 탑은 월요일 휴관.'},
  {d:25,dow:'월',sec:'lis',cost:[8,15,55],title:'알파마 골목과 파두',plan:[
    ['10:00','28번 트램 → 상 조르즈 성'],
    ['13:00','알파마 골목, 산타 루지아 전망대'],
    ['15:30','바이샤 → 시아두, 코메르시우 광장'],
    ['18:00','세뇨라 두 몬트 전망대에서 일몰'],
    ['20:30','알파마 파두 식당','book']]},
- {sec:'bcn2',ticket:{kind:'Flight · TAP',from:['LIS','리스본 T1'],to:['BCN','엘 프라트 T1'],info:'10:50 출발 → 13:45 도착. 위탁 1개 23kg, 기내 1개 10kg',stub:['1/26','화요일']}},
+ {sec:'bcn2',ticket:{kind:'Flight',from:['LIS','리스본 T1'],to:['BCN','엘 프라트 T1'],info:'10:50 → 13:45 · 위탁 23kg, 기내 10kg',stub:['1/26','화요일']}},
  {d:26,dow:'화',sec:'bcn2',cost:[15,0,45],title:'다시 바르셀로나, 마지막 밤',plan:[
    ['08:00','체크아웃, 지하철로 리스본 공항'],
    ['14:30','엘 프라트 도착, 택시로 Sercotel 체크인'],
@@ -504,19 +498,19 @@ const PLAN=[
  {d:27,dow:'수',sec:'bcn2',cost:[8,0,15],title:'Adiós',plan:[
    ['08:00','체크아웃, 택시로 공항 T1 (출발 3시간 전)'],
    ['공항','택스 리펀드 먼저 처리하고 짐 부치기']]},
- {sec:'end',ticket:{kind:'Flight · 에어차이나',from:['BCN','바르셀로나'],to:['GMP','김포'],info:'11:30 출발 → 1/28 05:30 베이징 → 환승 4시간 25분 → 09:55 출발 → 김포 13:05 도착',stub:['1/27','수요일']}}
+ {sec:'end',ticket:{kind:'Flight',from:['BCN','바르셀로나'],to:['GMP','김포'],info:'11:30 → 베이징 05:30 · 환승 4시간 25분 · 09:55 → 김포 13:05',stub:['1/27','수요일']}}
 ];
 const CHIP={book:['예약필수','book'],opt:['선택','opt'],foot:['축구','foot']};
-// 사진: Wikimedia Commons (각 사진의 저작자·라이선스 표기)
+// 사진: Wikimedia Commons
 const WM='https://thumb.wikimedia.org/wikipedia/commons/thumb/';
 const IMG={
-  palace:{src:WM+'9/9b/Palacio_Real_de_Madrid_Julio_2016_%28cropped%29.jpg/960px-Palacio_Real_de_Madrid_Julio_2016_%28cropped%29.jpg',w:960,h:726,alt:'마드리드 왕궁 정면',by:'Tim Adams',lic:'CC BY-SA 4.0',page:'https://commons.wikimedia.org/wiki/File:Palacio_Real_de_Madrid_Julio_2016_(cropped).jpg'},
-  alcazar:{src:WM+'c/c9/Sevilla-2-2_%2848040287512%29-edit.jpg/960px-Sevilla-2-2_%2848040287512%29-edit.jpg',w:960,h:720,alt:'세비야 알카사르 정원과 궁전',by:'Ajay Suresh, edited by MenkinAlRire',lic:'CC BY 2.0',page:'https://commons.wikimedia.org/wiki/File:Sevilla-2-2_(48040287512)-edit.jpg'},
-  plaza:{src:WM+'3/39/Seville%2C_Plaza_de_Espa%C3%B1a_%2838625005691%29_%28edited%29.jpg/960px-Seville%2C_Plaza_de_Espa%C3%B1a_%2838625005691%29_%28edited%29.jpg',w:960,h:762,alt:'세비야 스페인 광장',by:'Dmitry Dzhus',lic:'CC BY 2.0',page:'https://commons.wikimedia.org/wiki/File:Seville,_Plaza_de_Espa%C3%B1a_(38625005691)_(edited).jpg'},
-  sagrada:{src:WM+'7/74/Sagrada_Familia_March_2015-10a.jpg/960px-Sagrada_Familia_March_2015-10a.jpg',w:960,h:722,alt:'사그라다 파밀리아 내부 천장',by:'Alvesgaspar',lic:'CC BY-SA 4.0',page:'https://commons.wikimedia.org/wiki/File:Sagrada_Familia_March_2015-10a.jpg'},
-  guell:{src:WM+'c/cb/Park_G%C3%BCell_02.jpg/960px-Park_G%C3%BCell_02.jpg',w:960,h:724,alt:'구엘 공원 입구의 가우디 건물',by:'Bernard Gagnon',lic:'CC BY-SA 3.0',page:'https://commons.wikimedia.org/wiki/File:Park_G%C3%BCell_02.jpg'}
+  palace:{src:WM+'9/9b/Palacio_Real_de_Madrid_Julio_2016_%28cropped%29.jpg/960px-Palacio_Real_de_Madrid_Julio_2016_%28cropped%29.jpg',w:960,h:726,alt:'마드리드 왕궁 정면'},
+  alcazar:{src:WM+'c/c9/Sevilla-2-2_%2848040287512%29-edit.jpg/960px-Sevilla-2-2_%2848040287512%29-edit.jpg',w:960,h:720,alt:'세비야 알카사르 정원과 궁전'},
+  plaza:{src:WM+'3/39/Seville%2C_Plaza_de_Espa%C3%B1a_%2838625005691%29_%28edited%29.jpg/960px-Seville%2C_Plaza_de_Espa%C3%B1a_%2838625005691%29_%28edited%29.jpg',w:960,h:762,alt:'세비야 스페인 광장'},
+  sagrada:{src:WM+'7/74/Sagrada_Familia_March_2015-10a.jpg/960px-Sagrada_Familia_March_2015-10a.jpg',w:960,h:722,alt:'사그라다 파밀리아 내부 천장'},
+  guell:{src:WM+'c/cb/Park_G%C3%BCell_02.jpg/960px-Park_G%C3%BCell_02.jpg',w:960,h:724,alt:'구엘 공원 입구의 가우디 건물'}
 };
-const shot=i=>`<figure class="shot"><img src="${i.src}" width="${i.w}" height="${i.h}" alt="${escA(i.alt)}" loading="lazy" decoding="async"${i.pos?` style="object-position:${i.pos}"`:''}><figcaption><a href="${i.page}" target="_blank" rel="noopener">사진 ${esc(i.by)} · ${i.lic}</a></figcaption></figure>`;
+const shot=i=>`<figure class="shot"><img src="${i.src}" width="${i.w}" height="${i.h}" alt="${escA(i.alt)}" loading="lazy" decoding="async"${i.pos?` style="object-position:${i.pos}"`:''}></figure>`;
 const esc=s=>String(s).replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));
 const escA=s=>esc(s).replace(/"/g,'&quot;');
 
@@ -564,8 +558,7 @@ function render(){
   document.getElementById('budget').innerHTML=`<h2>전체 예상 예산</h2>
     <div class="b-total"><div><b>${krw(total)}</b><small>1인 · 국제선 포함</small></div><div><b>${krw(total-FLIGHT)}</b><small>1인 · 현지 경비만</small></div><div><b>${krw(total*3)}</b><small>3명 합계</small></div></div>
     <div class="b-bar" aria-hidden="true">${parts.map(([,col,v])=>`<i style="--c:${col};flex:${v}"></i>`).join('')}</div>
-    <div class="b-list">${parts.map(([l,col,v])=>`<div style="--c:${col}"><b>${l}</b><small>${krw(v)}</small></div>`).join('')}</div>
-    <p class="b-note">항공은 결제한 금액(에어차이나 왕복 + TAP 리스본→바르셀로나), 숙박은 10/27–28 Airbnb 표시액에 관광세 추정액을 더한 값이에요. 교통·입장·식비는 2026년 10월 웹 시세로 잡은 추정치이고 €1=₩1,600이에요. 선택 일정·쇼핑은 빠져 있어요.</p>`;
+    <div class="b-list">${parts.map(([l,col,v])=>`<div style="--c:${col}"><b>${l}</b><small>${krw(v)}</small></div>`).join('')}</div>`;
 }
 render();
 
