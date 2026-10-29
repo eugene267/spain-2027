@@ -103,7 +103,7 @@
       const points=route.stops.map(s=>L.latLng(s.slice(2)));
       route.center=L.latLng(points.reduce((s,p)=>s+p.lat,0)/points.length,points.reduce((s,p)=>s+p.lng,0)/points.length);
       route.radius=Math.max(...points.map(p=>route.center.distanceTo(p)))+120;
-      cityBounds.extend(L.circle(route.center,{radius:route.radius}).getBounds());
+      cityBounds.extend(route.center.toBounds(route.radius*2));
     });
     reset.addEventListener('click',()=>showOverview(true));
     // Restore the map size after a city filter hides and then shows Barcelona.
