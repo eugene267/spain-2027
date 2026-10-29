@@ -319,7 +319,7 @@ img{max-width:100%}
       <div class="panel">
         <h3>미리 예약해야 하는 것</h3>
         <ul>
-          <li><span class="mono">숙소</span><span>바르셀로나 첫 숙소만 예약 완료. 마드리드·세비야·포르투·리스본·마지막 바르셀로나는 아직 예약 전. 결제 카드는 해외결제 차단을 풀거나 Airbnb 통화를 EUR로</span></li>
+          <li><span class="mono">숙소</span><span>리스본만 예약 요청 후 호스트 수락 대기. 나머지 숙소는 예약 완료</span></li>
           <li><span class="mono">1/15</span><span>사그라다 파밀리아 (보통 몇 주 전 매진)</span></li>
           <li><span class="mono">1/16</span><span>구엘 공원 입장 시간 지정권</span></li>
           <li><span class="mono">1/17</span><span>바르셀로나 → 마드리드 기차 (AVE · iryo · Ouigo 비교)</span></li>
@@ -379,7 +379,7 @@ img{max-width:100%}
     </div>
   </section>
 
-  <footer>¡Buen viaje, chicos! · 항공권과 바르셀로나 첫 숙소만 확정. 나머지는 초안</footer>
+  <footer>¡Buen viaje, chicos! · 항공권과 숙소 확정(리스본은 호스트 수락 대기). 세부 일정은 초안</footer>
 </div>
 
 <script>
@@ -390,18 +390,18 @@ const CITIES={
   bcn1:{key:'bcn',name:'Barcelona',ko:'바르셀로나 · 3박',facts:[['기온','5–14°'],['일몰','약 17:40']],
     stay:{name:'커플을 위한 이상적인 객실',url:'https://www.airbnb.co.kr/rooms/24392074',desc:'바달로나 · 카탈루냐 광장까지 약 8.5km',price:448627,tax:144000,in:14,out:17,booked:true}},
   mad:{key:'mad',name:'Madrid',ko:'마드리드 · 3박',facts:[['기온','3–11°'],['일몰','약 18:10']],
-    stay:{name:'알리시아의 아파트',desc:'아토차역 약 1.3km',price:423455,tax:0,in:17,out:20}},
+    stay:{name:'알리시아의 아파트',desc:'아토차역 약 1.3km',price:423455,tax:0,in:17,out:20,booked:true}},
   svq:{key:'svq',name:'Sevilla',ko:'세비야 · 1박',facts:[['기온','6–16°'],['일몰','약 18:15']],
-    stay:{name:'레몬 트리 코너',url:'https://www.airbnb.co.kr/rooms/53877073',desc:'산타 후스타역 약 0.5km',price:155465,tax:0,in:20,out:21}},
+    stay:{name:'레몬 트리 코너',url:'https://www.airbnb.co.kr/rooms/53877073',desc:'산타 후스타역 약 0.5km',price:155465,tax:0,in:20,out:21,booked:true}},
   opo:{key:'opo',name:'Porto',ko:'포르투 · 2박',facts:[['기온','5–14°'],['일몰','약 17:40']],
-    stay:{name:'아스가르드 아파트먼트 101',desc:'상벤투역 약 0.3km',price:205805,tax:28800,in:22,out:24}},
+    stay:{name:'아스가르드 아파트먼트 101',desc:'상벤투역 약 0.3km',price:205805,tax:28800,in:22,out:24,booked:true}},
   lis:{key:'lis',name:'Lisboa',ko:'리스본 · 2박',facts:[['기온','8–15°'],['일몰','약 17:45']],
-    stay:{name:'야외 공간을 갖춘 편안함과 평온함',desc:'아로이우스 · 난방 없음 표기라 호스트에게 히터 확인',price:180635,tax:38400,in:24,out:26}},
+    stay:{name:'야외 공간을 갖춘 편안함과 평온함',desc:'아로이우스 · 난방 없음 표기라 호스트에게 히터 확인',price:180635,tax:38400,in:24,out:26,req:true}},
   bcn2:{key:'bcn',name:'Barcelona',ko:'다시 바르셀로나 · 1박',facts:[['공항','엘 프라트 BCN T1']],
-    stay:{name:'Sercotel Barcelona El Prat',url:'https://www.airbnb.co.kr/rooms/1644124202990432706',desc:'공항까지 약 4km, 택시',price:221468,tax:14400,in:26,out:27}}
+    stay:{name:'Sercotel Barcelona El Prat',url:'https://www.airbnb.co.kr/rooms/1644124202990432706',desc:'공항까지 약 4km, 택시',price:221468,tax:14400,in:26,out:27,booked:true}}
 };
 const won=n=>'₩'+n.toLocaleString('ko-KR');
-const stayHTML=s=>`<div class="stay"><div class="stay-main"><b>${s.url?`<a href="${s.url}" target="_blank" rel="noopener">${esc(s.name)}</a>`:esc(s.name)}<span class="chip ${s.booked?'done':'opt'}">${s.booked?'예약 완료':'예약 전'}</span></b><small>${esc(s.desc)}</small></div>
+const stayHTML=s=>`<div class="stay"><div class="stay-main"><b>${s.url?`<a href="${s.url}" target="_blank" rel="noopener">${esc(s.name)}</a>`:esc(s.name)}<span class="chip ${s.booked?'done':'opt'}">${s.booked?'예약 완료':s.req?'수락 대기':'예약 전'}</span></b><small>${esc(s.desc)}</small></div>
   <div class="stay-price"><b>${won(s.price)}</b><small>3명 · ${s.out-s.in}박 합계${s.tax?` · 관광세 약 ${won(s.tax)} 별도`:''}</small></div></div>`;
 // 예산: 1인 기준. 각 날의 cost는 [교통, 입장·공연, 식비] 유로 추정치(2026-10 웹 시세, 선택 일정 제외)
 const EUR=1600;          // €1 = ₩1,600 가정
