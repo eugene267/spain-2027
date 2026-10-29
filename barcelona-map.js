@@ -26,17 +26,39 @@
   ];
   const dates=document.getElementById('bcn-map-dates');
   const reset=document.getElementById('bcn-map-reset');
-  let map,layer;
-  let current=routes[0];
-  let overview=true;
-  const cityPoints=routes.flatMap(r=>r.stops.map(s=>s.slice(2)));
+  let map,layer,cityBounds;
+  let current=null;
   const timeFor=(route,stop)=>PLAN.find(p=>p.d===route.day).plan[stop[0]][0];
   const googleURL=stop=>'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(stop[2]+','+stop[3]);
-  function cityView(){if(host.clientWidth)map.fitBounds(cityPoints,{padding:[28,28],maxZoom:14,animate:false});}
-  function dayView(){if(host.clientWidth)map.fitBounds(current.stops.map(s=>s.slice(2)),{padding:[35,35],maxZoom:15,animate:false});}
-  function show(route,fit=true){
+  function moveTo(bounds,maxZoom,animate=false){
+    if(!map||!host.clientWidth)return;
+    map.stop();
+    const options={padding:[45,45],maxZoom,duration:.9};
+    if(animate&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches)map.flyToBounds(bounds,options);
+    else map.fitBounds(bounds,{...options,animate:false});
+  }
+  function updateDates(){dates.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',Number(b.dataset.day)===current?.day));}
+  function showOverview(animate=false){
+    current=null;updateDates();
+    if(!map)return;
+    layer.clearLayers();
+    // Larger regions go underneath smaller ones so overlapping days remain selectable.
+    [...routes].sort((a,b)=>b.radius-a.radius).forEach(route=>{
+      L.circle(route.center,{radius:route.radius,color:route.color,weight:2,fillOpacity:.12})
+        .addTo(layer).on('click',()=>show(route));
+    });
+    routes.forEach(route=>{
+      const label=document.createElement('span');label.className='bcn-map-area-label';
+      label.style.setProperty('--route-color',route.color);label.textContent='1/'+route.day;
+      L.marker(route.center,{title:'1/'+route.day+' 동선 확대',
+        icon:L.divIcon({className:'bcn-map-area-marker',html:label,iconSize:[60,28],iconAnchor:[30,14]})
+      }).addTo(layer).on('click',()=>show(route));
+    });
+    moveTo(cityBounds,14,animate);
+  }
+  function show(route){
     current=route;
-    dates.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',Number(b.dataset.day)===route.day));
+    updateDates();
     if(layer)layer.clearLayers();
     route.stops.forEach((stop,i)=>{
       const time=timeFor(route,stop);
@@ -62,7 +84,7 @@
     });
     if(map){
       L.polyline(route.stops.map(s=>s.slice(2)),{color:route.color,weight:4,opacity:.85,dashArray:'7 9',interactive:false}).addTo(layer);
-      if(fit){overview=false;dayView();}
+      moveTo(route.stops.map(s=>s.slice(2)),15,true);
     }
   }
   routes.forEach(route=>{
@@ -76,14 +98,21 @@
       maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
     layer=L.layerGroup().addTo(map);
-    reset.addEventListener('click',()=>{overview=true;cityView();});
+    cityBounds=L.latLngBounds([]);
+    routes.forEach(route=>{
+      const points=route.stops.map(s=>L.latLng(s.slice(2)));
+      route.center=L.latLng(points.reduce((s,p)=>s+p.lat,0)/points.length,points.reduce((s,p)=>s+p.lng,0)/points.length);
+      route.radius=Math.max(...points.map(p=>route.center.distanceTo(p)))+120;
+      cityBounds.extend(L.circle(route.center,{radius:route.radius}).getBounds());
+    });
+    reset.addEventListener('click',()=>showOverview(true));
     // Restore the map size after a city filter hides and then shows Barcelona.
-    new ResizeObserver(()=>{if(host.clientWidth){map.invalidateSize();if(overview)cityView();else dayView();}}).observe(host);
+    new ResizeObserver(()=>{if(host.clientWidth){map.invalidateSize();moveTo(current?current.stops.map(s=>s.slice(2)):cityBounds,current?15:14);}}).observe(host);
   }else{
     host.textContent='지도를 불러오지 못했어요. 새로고침해 주세요.';
     reset.disabled=true;
   }
-  show(current,false);
+  showOverview();
   // Measure the settled layout before applying the same view as the reset button.
-  if(map)requestAnimationFrame(()=>{map.invalidateSize();if(overview)cityView();else dayView();});
+  if(map)requestAnimationFrame(()=>{map.invalidateSize();moveTo(current?current.stops.map(s=>s.slice(2)):cityBounds,current?15:14);});
 })();

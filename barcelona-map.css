@@ -12,6 +12,8 @@
 .bcn-map-label.label-left{left:auto;right:14px}
 .bcn-map-label.label-below{bottom:auto;top:12px}
 .bcn-map-marker{background:transparent;border:0}
+.bcn-map-area-marker{background:transparent;border:0}
+.bcn-map-area-label{display:block;text-align:center;padding:4px 8px;border-radius:999px;background:white;color:var(--route-color);border:2px solid var(--route-color);font:600 12px/16px var(--mono);box-shadow:0 2px 8px #172c4230;cursor:pointer}
 .bcn-map-card button:focus-visible{outline:2px solid var(--bcn);outline-offset:3px}
 #bcn-map .leaflet-popup-content{line-height:1.7}
 #bcn-map .leaflet-popup-content a{color:#1d5faf}
