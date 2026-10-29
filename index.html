@@ -360,7 +360,6 @@ img{max-width:100%}
           <li><span class="dot"></span><span>마드리드 지하철: 교통카드(Tarjeta Multi)에 10회권 충전하면 여럿이 같이 써도 됨</span></li>
           <li><span class="dot"></span><span>바르셀로나: T-casual 10회권은 1인용. 3명이면 각자 1장씩</span></li>
           <li><span class="dot"></span><span>포르투는 Andante, 리스본은 Navegante 충전식 카드. 1인 1장</span></li>
-          <li><span class="dot"></span><span>베이징 환승: 한국인 무비자·240시간 환승 조건을 출발 전 공식 공지로 다시 확인</span></li>
           <li><span class="dot"></span><span>축구 직관 원하면 경기 일정이 보통 2–3주 전에 확정됨. 그때 예매</span></li>
         </ul>
       </div>
@@ -388,18 +387,18 @@ const C={bcn:{c:'var(--bcn)',s:'var(--bcn-soft)'},mad:{c:'var(--mad)',s:'var(--m
 // 숙소 금액은 Airbnb 3명 합계 표시액(10/27–28), tax는 관광세 추정액. in–out 사이의 밤에 1인 몫을 나눠 넣음
 const CITIES={
   pek:{key:'pek',name:'Beijing',ko:'베이징 환승 · 기내 1박',facts:[['환승','11시간 20분'],['공항','서우두 PEK T3']]},
-  bcn1:{key:'bcn',name:'Barcelona',ko:'바르셀로나 · 3박',facts:[['기온','5–14°'],['일몰','약 17:40'],['숙소','1/14 체크인 → 1/17 체크아웃']],
-    stay:{name:'커플을 위한 이상적인 객실',url:'https://www.airbnb.co.kr/rooms/24392074',desc:'바달로나 호스트 집 개인실 · 퀸 + 소파베드 · 전용 욕실 · 15시 체크인, 12시 체크아웃 · 짐 보관 가능 · 카탈루냐 광장까지 약 8.5km · 1/9 15시 전까지 무료 취소',price:448627,tax:144000,in:14,out:17,booked:true}},
-  mad:{key:'mad',name:'Madrid',ko:'마드리드 · 3박',facts:[['기온','3–11°'],['일몰','약 18:10'],['숙소','1/17 체크인 → 1/20 체크아웃']],
-    stay:{name:'알리시아의 아파트',desc:'아토차-델리시아스 원룸 · 퀸 + 소파베드 · 욕실 1 · 15시 체크인, 11시 체크아웃 · 아토차역 약 1.3km',price:423455,tax:0,in:17,out:20}},
-  svq:{key:'svq',name:'Sevilla',ko:'세비야 · 1박',facts:[['기온','6–16°'],['일몰','약 18:15'],['숙소','1/20 체크인 → 1/21 체크아웃']],
-    stay:{name:'레몬 트리 코너',url:'https://www.airbnb.co.kr/rooms/53877073',desc:'산타 후스타 아파트 전체 · 침실 2, 더블 2 · 15시 체크인, 12시 체크아웃 · 짐 보관 가능 · 세탁기 · 산타 후스타역 약 0.5km',price:155465,tax:0,in:20,out:21}},
-  opo:{key:'opo',name:'Porto',ko:'포르투 · 2박',facts:[['기온','5–14°'],['일몰','약 17:40'],['숙소','1/22 체크인 → 1/24 체크아웃']],
-    stay:{name:'아스가르드 아파트먼트 101',desc:'아파트 · 침대 2 · 욕실 1 · 15시 체크인, 11시 체크아웃 · 짐 보관 표기 없음 · 상벤투역 약 0.3km',price:205805,tax:28800,in:22,out:24}},
-  lis:{key:'lis',name:'Lisboa',ko:'리스본 · 2박',facts:[['기온','8–15°'],['일몰','약 17:45'],['숙소','1/24 체크인 → 1/26 체크아웃']],
-    stay:{name:'야외 공간을 갖춘 편안함과 평온함',desc:'아로이우스 개인실 · 침대 2 · 전용 욕실 · 15시 셀프 체크인 · 세탁기 · 난방이 없음으로 표기돼 호스트에게 히터 확인 필요',price:180635,tax:38400,in:24,out:26}},
-  bcn2:{key:'bcn',name:'Barcelona',ko:'다시 바르셀로나 · 1박',facts:[['숙소','1/26 체크인 → 1/27 체크아웃'],['공항','엘 프라트 BCN T1']],
-    stay:{name:'Sercotel Barcelona El Prat',url:'https://www.airbnb.co.kr/rooms/1644124202990432706',desc:'주니어 스위트 39㎡ · 더블 2 · 짐 보관 · 공항까지 약 4km, 택시가 편함 · 조식 유료',price:221468,tax:14400,in:26,out:27}}
+  bcn1:{key:'bcn',name:'Barcelona',ko:'바르셀로나 · 3박',facts:[['기온','5–14°'],['일몰','약 17:40']],
+    stay:{name:'커플을 위한 이상적인 객실',url:'https://www.airbnb.co.kr/rooms/24392074',desc:'바달로나 · 카탈루냐 광장까지 약 8.5km',price:448627,tax:144000,in:14,out:17,booked:true}},
+  mad:{key:'mad',name:'Madrid',ko:'마드리드 · 3박',facts:[['기온','3–11°'],['일몰','약 18:10']],
+    stay:{name:'알리시아의 아파트',desc:'아토차역 약 1.3km',price:423455,tax:0,in:17,out:20}},
+  svq:{key:'svq',name:'Sevilla',ko:'세비야 · 1박',facts:[['기온','6–16°'],['일몰','약 18:15']],
+    stay:{name:'레몬 트리 코너',url:'https://www.airbnb.co.kr/rooms/53877073',desc:'산타 후스타역 약 0.5km',price:155465,tax:0,in:20,out:21}},
+  opo:{key:'opo',name:'Porto',ko:'포르투 · 2박',facts:[['기온','5–14°'],['일몰','약 17:40']],
+    stay:{name:'아스가르드 아파트먼트 101',desc:'상벤투역 약 0.3km',price:205805,tax:28800,in:22,out:24}},
+  lis:{key:'lis',name:'Lisboa',ko:'리스본 · 2박',facts:[['기온','8–15°'],['일몰','약 17:45']],
+    stay:{name:'야외 공간을 갖춘 편안함과 평온함',desc:'아로이우스 · 난방 없음 표기라 호스트에게 히터 확인',price:180635,tax:38400,in:24,out:26}},
+  bcn2:{key:'bcn',name:'Barcelona',ko:'다시 바르셀로나 · 1박',facts:[['공항','엘 프라트 BCN T1']],
+    stay:{name:'Sercotel Barcelona El Prat',url:'https://www.airbnb.co.kr/rooms/1644124202990432706',desc:'공항까지 약 4km, 택시',price:221468,tax:14400,in:26,out:27}}
 };
 const won=n=>'₩'+n.toLocaleString('ko-KR');
 const stayHTML=s=>`<div class="stay"><div class="stay-main"><b>${s.url?`<a href="${s.url}" target="_blank" rel="noopener">${esc(s.name)}</a>`:esc(s.name)}<span class="chip ${s.booked?'done':'opt'}">${s.booked?'예약 완료':'예약 전'}</span></b><small>${esc(s.desc)}</small></div>
@@ -410,13 +409,13 @@ const FLIGHT=775500+129500; // 에어차이나 왕복 + TAP 리스본→바르�
 const krw=n=>won(Math.round(n/100)*100);
 // [time, text, chip]
 const PLAN=[
- {sec:'pek',ticket:{kind:'Flight · 에어차이나 CA138',from:['GMP','김포'],to:['PEK','베이징 서우두 T3'],info:'14:25 출발 → 15:45 도착. 위탁 1개 23kg, 기내 1개 5kg. 짐은 바르셀로나까지 연결',stub:['1/13','수요일']}},
+ {sec:'pek',ticket:{kind:'Flight · 에어차이나',from:['GMP','김포'],to:['PEK','베이징 서우두 T3'],info:'14:25 출발 → 15:45 도착. 위탁 1개 23kg, 기내 1개 5kg. 짐은 바르셀로나까지 연결',stub:['1/13','수요일']}},
  {d:13,dow:'수',sec:'pek',cost:[0,0,15],title:'베이징에서 11시간 환승',plan:[
    ['15:45','베이징 서우두 T3 도착, 환승 수속'],
    ['저녁','PP카드 있으면 T3E BGS Premier Lounge (최대 3시간)','opt'],
    ['밤','게이트 근처에서 쉬면서 대기']],
    note:'중국 30일 무비자는 2026-12-31까지로 발표돼 있음. 공항 밖으로 나갈 생각이면 출발 전에 무비자·240시간 환승 조건을 다시 확인.'},
- {sec:'bcn1',ticket:{kind:'Flight · 에어차이나 CA845',from:['PEK','베이징'],to:['BCN','엘 프라트 T1'],info:'1/14 03:05 출발 → 08:05 도착. 공항 → 시내는 에어로버스 약 35분',stub:['1/14','목요일']}},
+ {sec:'bcn1',ticket:{kind:'Flight · 에어차이나',from:['PEK','베이징'],to:['BCN','엘 프라트 T1'],info:'1/14 03:05 출발 → 08:05 도착. 공항 → 시내는 에어로버스 약 35분',stub:['1/14','목요일']}},
  {d:14,dow:'목',sec:'bcn1',cost:[10,0,45],title:'아침 도착, 짐 맡기고 고딕 지구',plan:[
    ['09:30','시내 짐 보관 서비스에 캐리어 맡기기'],
    ['11:00','고딕 지구 → 엘 보른 골목 산책'],
@@ -468,7 +467,7 @@ const PLAN=[
    ['17:30','메트로폴 파라솔(라스 세타스) 전망대에서 일몰','opt'],
    ['밤','짐 찾아서 야간버스 탑승']],
    note:'버스 시간과 출발지(Plaza de Armas 또는 공항)는 1월 표가 열려야 확정. 10월 기준 FlixBus는 환승 1회, 11–14시간.'},
- {sec:'opo',ticket:{kind:'Bus · 야간버스',from:['SVQ','세비야'],to:['OPO','포르투'],info:'FlixBus 등. 1월 시간표와 직행 여부는 아직 확인 전. 운임은 약 €50로 잡음',stub:['1/21','목요일']}},
+ {sec:'opo',ticket:{kind:'Bus · 야간버스',from:['SVQ','세비야'],to:['OPO','포르투'],info:'FlixBus 등. 1월 시간표는 아직 미정',stub:['1/21','목요일']}},
  {d:22,dow:'금',sec:'opo',cost:[5,10,40],title:'새벽 포르투, 리베이라 강변',plan:[
    ['아침','포르투 도착, 상벤투역 락커나 짐 보관 앱에 캐리어 맡기기'],
    ['09:00','상벤투역 아줄레주 → 카페에서 아침'],
@@ -496,7 +495,7 @@ const PLAN=[
    ['15:30','바이샤 → 시아두, 코메르시우 광장'],
    ['18:00','세뇨라 두 몬트 전망대에서 일몰'],
    ['20:30','알파마 파두 식당','book']]},
- {sec:'bcn2',ticket:{kind:'Flight · TAP TP1034',from:['LIS','리스본 T1'],to:['BCN','엘 프라트 T1'],info:'10:50 출발 → 13:45 도착. 위탁 1개 23kg, 기내 1개 10kg',stub:['1/26','화요일']}},
+ {sec:'bcn2',ticket:{kind:'Flight · TAP',from:['LIS','리스본 T1'],to:['BCN','엘 프라트 T1'],info:'10:50 출발 → 13:45 도착. 위탁 1개 23kg, 기내 1개 10kg',stub:['1/26','화요일']}},
  {d:26,dow:'화',sec:'bcn2',cost:[15,0,45],title:'다시 바르셀로나, 마지막 밤',plan:[
    ['08:00','체크아웃, 지하철로 리스본 공항'],
    ['14:30','엘 프라트 도착, 택시로 Sercotel 체크인'],
@@ -505,7 +504,7 @@ const PLAN=[
  {d:27,dow:'수',sec:'bcn2',cost:[8,0,15],title:'Adiós',plan:[
    ['08:00','체크아웃, 택시로 공항 T1 (출발 3시간 전)'],
    ['공항','택스 리펀드 먼저 처리하고 짐 부치기']]},
- {sec:'end',ticket:{kind:'Flight · 에어차이나 CA846 · CA137',from:['BCN','바르셀로나'],to:['GMP','김포'],info:'11:30 출발 → 1/28 05:30 베이징 → 환승 4시간 25분 → 09:55 출발 → 김포 13:05 도착',stub:['1/27','수요일']}}
+ {sec:'end',ticket:{kind:'Flight · 에어차이나',from:['BCN','바르셀로나'],to:['GMP','김포'],info:'11:30 출발 → 1/28 05:30 베이징 → 환승 4시간 25분 → 09:55 출발 → 김포 13:05 도착',stub:['1/27','수요일']}}
 ];
 const CHIP={book:['예약필수','book'],opt:['선택','opt'],foot:['축구','foot']};
 // 사진: Wikimedia Commons (각 사진의 저작자·라이선스 표기)
