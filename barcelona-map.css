@@ -1,0 +1,22 @@
+.bcn-map-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;min-width:0}
+.bcn-map-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 18px 10px}
+.bcn-map-head h3{font-size:17px}
+.bcn-map-card button{font:inherit;cursor:pointer}
+#bcn-map-reset{font-size:12px;border:1px solid var(--line);border-radius:7px;padding:5px 10px;color:var(--ink-2);background:var(--surface);white-space:nowrap}
+.bcn-map-dates{display:flex;gap:8px;padding:0 18px 14px;overflow-x:auto}
+.bcn-map-dates button{border:1px solid var(--line);border-radius:999px;padding:6px 14px;color:var(--ink-2);background:var(--surface);font-size:13px;white-space:nowrap}
+.bcn-map-dates button[aria-pressed="true"]{color:white;background:var(--route-color);border-color:var(--route-color)}
+#bcn-map{height:460px;width:100%;background:#e5e9ed;isolation:isolate;z-index:0;color:#18232f;font-family:var(--body)}
+.bcn-map-caption{font-size:12px;color:var(--ink-3);padding:10px 18px 0;margin:0}
+.bcn-map-stops{list-style:none;margin:0;padding:10px 18px 18px;display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+.bcn-map-stops button{display:flex;align-items:center;gap:9px;text-align:left;width:100%;border:0;background:transparent;padding:5px 0;color:var(--ink);font-size:13px}
+.bcn-map-stops time{color:var(--ink-3);font-family:var(--mono);font-size:11px;margin-right:6px}
+.bcn-map-number,.bcn-map-pin{display:grid;place-items:center;background:var(--route-color);color:white;border:2px solid white;border-radius:50%;font-family:var(--mono);font-size:12px;font-weight:600}
+.bcn-map-number{flex:0 0 25px;height:25px}
+.bcn-map-pin{width:30px;height:30px;box-shadow:0 2px 7px #172c4260}
+.bcn-map-marker{background:transparent;border:0}
+.bcn-map-card button:focus-visible{outline:2px solid var(--bcn);outline-offset:3px}
+#bcn-map .leaflet-popup-content{line-height:1.7}
+#bcn-map .leaflet-popup-content a{color:#1d5faf}
+#bcn-map .leaflet-control-attribution{font-size:10px}
+@media(max-width:560px){#bcn-map{height:420px}.bcn-map-stops{grid-template-columns:1fr}.bcn-map-head{padding-top:14px}}

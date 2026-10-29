@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="description" content="2027년 1월 13일–28일 바르셀로나 · 마드리드 · 세비야 · 포르투 · 리스본 여행 일정표">
 <title>España · Portugal 2027 원정대</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="barcelona-map.css">
+<script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script defer src="barcelona-map.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
@@ -538,7 +542,13 @@ function render(){
       close();cur=p.sec;const c=CITIES[p.sec];
       html+=`<section class="city" data-city="${c.key}" style="--c:${col.c};--soft:${col.s}">
         <div class="city-top"><h2><small>${esc(c.ko)}</small>${c.name}</h2>
-        <div class="facts">${c.facts.map(f=>`<span>${esc(f[0])} <b>${esc(f[1])}</b></span>`).join('')}</div></div>${c.stay?stayHTML(c.stay):''}<div class="days">`;
+        <div class="facts">${c.facts.map(f=>`<span>${esc(f[0])} <b>${esc(f[1])}</b></span>`).join('')}</div></div>${c.stay?stayHTML(c.stay):''}${p.sec==='bcn1'?`<section class="bcn-map-card" aria-labelledby="bcn-map-title">
+          <div class="bcn-map-head"><h3 id="bcn-map-title">바르셀로나 동선</h3><button type="button" id="bcn-map-reset">시내 전체</button></div>
+          <div class="bcn-map-dates" id="bcn-map-dates" aria-label="지도 날짜 선택"></div>
+          <div id="bcn-map" aria-label="바르셀로나 관광 동선 지도"></div>
+          <p class="bcn-map-caption" id="bcn-map-status">점선은 방문 순서이며 실제 이동 경로와 다릅니다.</p>
+          <ol class="bcn-map-stops" id="bcn-map-stops" aria-live="polite"></ol>
+        </section>`:''}<div class="days">`;
       open=true;
     }
     const n=p.d-12,st=CITIES[p.sec].stay;
