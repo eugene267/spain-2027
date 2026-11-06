@@ -105,7 +105,13 @@ h1,h2,h3{text-wrap:balance;margin:0}
 .b-list b::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--c)}
 .b-list small{color:var(--ink-3);font-family:var(--mono);font-size:11px}
 @media (max-width:560px){.b-list{grid-template-columns:repeat(2,1fr)}}
-.cost{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline;font-size:12.5px;color:var(--ink-3);border-top:1px dashed var(--line);padding-top:8px}
+.cost{font-size:12.5px;color:var(--ink-3);border-top:1px dashed var(--line);padding-top:8px}
+.cost summary{display:flex;align-items:center;gap:8px;width:fit-content;cursor:pointer;list-style:none;border-radius:4px}
+.cost summary::-webkit-details-marker{display:none}
+.cost summary::after{content:"⌄";font-size:14px}
+.cost[open] summary::after{content:"⌃"}
+.cost summary:focus-visible{outline:2px solid var(--c);outline-offset:3px}
+.cost-breakdown{display:flex;flex-wrap:wrap;gap:4px 14px;padding-top:6px}
 .cost b{font-family:var(--mono);font-size:14px;font-weight:600;color:var(--ink)}
 
 /* FILTER */
@@ -140,8 +146,10 @@ h1,h2,h3{text-wrap:balance;margin:0}
 .day.today{background:var(--soft);margin-inline:-14px;padding-inline:14px;border-radius:10px}
 .date{display:grid;align-content:start;gap:2px}
 .date b{font-family:var(--display);font-weight:700;font-size:34px;line-height:1;color:var(--c);font-variant-numeric:tabular-nums}
-.date span{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--ink-3);text-transform:uppercase}
-.date em{font-style:normal;font-size:11px;font-weight:600;color:var(--ink-2)}
+.date .month{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--ink-3);text-transform:uppercase}
+.day-comment{display:flex;align-items:center;gap:4px;justify-self:start;margin:4px 0 0 -4px;padding:3px 4px;font:inherit;font-size:11px;font-weight:600;color:var(--c);background:none;border:0;border-radius:4px;cursor:pointer;white-space:nowrap}
+.day-comment:hover,.day-comment.on{background:var(--soft)}
+.day-comment:focus-visible{outline:2px solid var(--c);outline-offset:2px}
 .body{display:grid;gap:10px;min-width:0}
 .body h3{font-size:18px;font-weight:700;line-height:1.35}
 .plan{list-style:none;margin:0;padding:0;display:grid;gap:6px}
@@ -541,16 +549,16 @@ function render(){
         <div class="facts">${c.facts.map(f=>`<span>${esc(f[0])} <b>${esc(f[1])}</b></span>`).join('')}</div></div>${c.stay?stayHTML(c.stay):''}<div class="days">`;
       open=true;
     }
-    const n=p.d-12,st=CITIES[p.sec].stay;
+    const st=CITIES[p.sec].stay;
     const c={stay:st&&p.d>=st.in&&p.d<st.out?(st.price+st.tax)/(st.out-st.in)/3:0,move:p.cost[0]*EUR,ticket:p.cost[1]*EUR,food:p.cost[2]*EUR};
     for(const k in c)sum[k]+=c[k];
-    const costHTML=`<div class="cost"><b>1인 ${krw(c.stay+c.move+c.ticket+c.food)}</b>${[['숙박','stay'],['교통','move'],['입장·공연','ticket'],['식비','food']].filter(([,k])=>c[k]).map(([l,k])=>`<span>${l} ${krw(c[k])}</span>`).join('')}</div>`;
+    const costHTML=`<details class="cost"><summary aria-label="1월 ${p.d}일 1인 비용 내역"><b>1인 ${krw(c.stay+c.move+c.ticket+c.food)}</b></summary><div class="cost-breakdown">${[['숙박','stay'],['교통','move'],['입장·공연','ticket'],['식비','food']].filter(([,k])=>c[k]).map(([l,k])=>`<span>${l} ${krw(c[k])}</span>`).join('')}</div></details>`;
     html+=`<article class="day" id="d${p.d}" data-date="2027-01-${p.d}">
-      <div class="date"><b>${p.d}</b><span>JAN · ${p.dow}</span><em>Day ${n}</em></div>
+      <div class="date"><b>${p.d}</b><span class="month">JAN</span><button type="button" class="day-comment" data-target="" aria-label="1월 ${p.d}일 전체 의견"><span>＋ 의견</span><span class="n" hidden></span></button></div>
       <div class="body"><h3>${esc(p.title)}</h3>${p.img?shot(IMG[p.img]):''}<ul class="plan">${p.plan.map(([t,x,c])=>`<li><button type="button" class="item" data-target="${escA(t+' '+x)}"><time>${esc(t)}</time><span>${esc(x)}${c?`<span class="chip ${CHIP[c][1]}">${CHIP[c][0]}</span>`:''}</span><span class="aux"><span class="n" hidden></span><span class="add">＋ 의견</span></span></button></li>`).join('')}</ul>
       ${p.note?`<div class="note">${esc(p.note)}</div>`:''}
       ${costHTML}
-      <div class="thread" data-day="${p.d}"><ul class="t-list"></ul><button type="button" class="ghost" data-target="">＋ 이 날 전체에 의견</button><div class="slot"></div></div></div></article>`;
+      <div class="thread" data-day="${p.d}"><ul class="t-list"></ul><div class="slot"></div></div></div></article>`;
   }
   close();
   root.innerHTML=html;
@@ -627,8 +635,8 @@ const COMMENTS_API='https://script.google.com/macros/s/AKfycbyFjO7ohvOi5uNP4ol7O
     return target?`<b>${esc(target)}</b> · ${dl}`:`<b>${dl} 하루 전체</b>`;
   }
   function open(thread,day,target,btn){
-    document.querySelectorAll('.item.on').forEach(el=>el.classList.remove('on'));
-    if(btn&&btn.classList.contains('item'))btn.classList.add('on');
+    document.querySelectorAll('.item.on, .day-comment.on').forEach(el=>el.classList.remove('on'));
+    if(btn&&btn.matches('.item, .day-comment'))btn.classList.add('on');
     cur={day:String(day||''),target:target||''};
     thread.querySelector('.slot').appendChild(cp);
     $('cp-ref').innerHTML=refLabel(day,target)+'에 대한 의견';
@@ -637,14 +645,14 @@ const COMMENTS_API='https://script.google.com/macros/s/AKfycbyFjO7ohvOi5uNP4ol7O
     (cp.querySelector('input[name=who]:checked')?$('cp-text'):$('who-0')).focus({preventScroll:true});
   }
   function close(){
-    document.querySelectorAll('.item.on').forEach(el=>el.classList.remove('on'));
+    document.querySelectorAll('.item.on, .day-comment.on').forEach(el=>el.classList.remove('on'));
     cp.remove();cur=null;
   }
   document.addEventListener('click',e=>{
-    const el=e.target.closest('.item, .ghost[data-target]');
+    const el=e.target.closest('.item, .day-comment, .ghost[data-target]');
     if(!el)return;
-    if(el.classList.contains('item')&&el.classList.contains('on')){close();return;}
-    const thread=el.classList.contains('item')?el.closest('.day').querySelector('.thread'):el.closest('.thread');
+    if(el.matches('.item, .day-comment')&&el.classList.contains('on')){close();return;}
+    const thread=el.matches('.item, .day-comment')?el.closest('.day').querySelector('.thread'):el.closest('.thread');
     open(thread,thread.dataset.day,el.dataset.target,el);
   });
   cp.addEventListener('click',e=>{if(e.target.id==='cp-x'||e.target.id==='cp-cancel')close();});
@@ -695,7 +703,7 @@ const COMMENTS_API='https://script.google.com/macros/s/AKfycbyFjO7ohvOi5uNP4ol7O
       const d=host.id.slice(1),move=host.id[0]==='t';
       const mine=all.filter(c=>String(c.day)===d&&isMove(c.target)===move);
       const tl=host.querySelector('.t-list');if(tl)tl.innerHTML=mine.map(c=>cmHTML(c,false)).join('');
-      host.querySelectorAll('.item').forEach(b=>{
+      host.querySelectorAll('.item, .day-comment').forEach(b=>{
         const n=mine.filter(c=>c.target===b.dataset.target).length,el=b.querySelector('.n');
         el.hidden=!n;el.textContent=n;
       });
