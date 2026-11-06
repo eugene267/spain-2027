@@ -147,7 +147,7 @@ h1,h2,h3{text-wrap:balance;margin:0}
 .date{display:grid;align-content:start;gap:2px}
 .date b{font-family:var(--display);font-weight:700;font-size:34px;line-height:1;color:var(--c);font-variant-numeric:tabular-nums}
 .date .month{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--ink-3);text-transform:uppercase}
-.day-comment{display:flex;align-items:center;gap:4px;justify-self:start;margin:4px 0 0 -4px;padding:3px 4px;font:inherit;font-size:11px;font-weight:600;color:var(--c);background:none;border:0;border-radius:4px;cursor:pointer;white-space:nowrap}
+.day-comment{display:flex;flex-wrap:wrap;max-width:100%;align-items:center;gap:4px;justify-self:start;margin:4px 0 0 -4px;padding:3px 4px;font:inherit;font-size:11px;font-weight:600;color:var(--c);background:none;border:0;border-radius:4px;cursor:pointer;white-space:nowrap}
 .day-comment:hover,.day-comment.on{background:var(--soft)}
 .day-comment:focus-visible{outline:2px solid var(--c);outline-offset:2px}
 .body{display:grid;gap:10px;min-width:0}
@@ -552,7 +552,7 @@ function render(){
     const st=CITIES[p.sec].stay;
     const c={stay:st&&p.d>=st.in&&p.d<st.out?(st.price+st.tax)/(st.out-st.in)/3:0,move:p.cost[0]*EUR,ticket:p.cost[1]*EUR,food:p.cost[2]*EUR};
     for(const k in c)sum[k]+=c[k];
-    const costHTML=`<details class="cost"><summary aria-label="1월 ${p.d}일 1인 비용 내역"><b>1인 ${krw(c.stay+c.move+c.ticket+c.food)}</b></summary><div class="cost-breakdown">${[['숙박','stay'],['교통','move'],['입장·공연','ticket'],['식비','food']].filter(([,k])=>c[k]).map(([l,k])=>`<span>${l} ${krw(c[k])}</span>`).join('')}</div></details>`;
+    const costHTML=`<details class="cost"><summary aria-label="1월 ${p.d}일 1인 ${krw(c.stay+c.move+c.ticket+c.food)} 비용 내역"><b>1인 ${krw(c.stay+c.move+c.ticket+c.food)}</b></summary><div class="cost-breakdown">${[['숙박','stay'],['교통','move'],['입장·공연','ticket'],['식비','food']].filter(([,k])=>c[k]).map(([l,k])=>`<span>${l} ${krw(c[k])}</span>`).join('')}</div></details>`;
     html+=`<article class="day" id="d${p.d}" data-date="2027-01-${p.d}">
       <div class="date"><b>${p.d}</b><span class="month">JAN</span><button type="button" class="day-comment" data-target="" aria-label="1월 ${p.d}일 전체 의견"><span>＋ 의견</span><span class="n" hidden></span></button></div>
       <div class="body"><h3>${esc(p.title)}</h3>${p.img?shot(IMG[p.img]):''}<ul class="plan">${p.plan.map(([t,x,c])=>`<li><button type="button" class="item" data-target="${escA(t+' '+x)}"><time>${esc(t)}</time><span>${esc(x)}${c?`<span class="chip ${CHIP[c][1]}">${CHIP[c][0]}</span>`:''}</span><span class="aux"><span class="n" hidden></span><span class="add">＋ 의견</span></span></button></li>`).join('')}</ul>
